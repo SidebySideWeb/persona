@@ -1,0 +1,111 @@
+---
+import {nightImages, siteDefaults} from '../lib/fallbacks'
+---
+
+<section class="w-full py-space-3xl bg-surface-container-low" id="location-section">
+  <div class="site-wrap">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-stretch">
+      <div class="lg:col-span-6 flex flex-col justify-between gap-space-lg reveal-on-scroll">
+        <div>
+          <div class="inline-flex items-center gap-2 mb-2">
+            <span class="bg-primary text-on-primary font-label-sticker text-label-sticker uppercase tracking-widest px-3 py-1 rounded-full -rotate-1">
+              SUN CITY VIBES
+            </span>
+            <span class="text-xs uppercase tracking-wider text-outline font-semibold">ΠΟΥ ΘΑ ΜΑΣ ΒΡΕΙΤΕ</span>
+          </div>
+          <h2 class="font-display text-headline-lg-mobile lg:text-headline-lg text-on-surface font-bold leading-tight">
+            Στην καρδιά της Ηλιούπολης.
+          </h2>
+          <p class="font-body-md text-body-md text-on-surface-variant mt-1">
+            {siteDefaults.address} (Πλησίον Κεντρικής Πλατείας).
+          </p>
+        </div>
+
+        <div class="bg-surface-container-lowest rounded-lg p-space-lg shadow-elevation-1">
+          <div class="flex items-center gap-2 pb-space-sm mb-space-sm border-b border-surface-container">
+            <span class="material-symbols-outlined text-primary">schedule</span>
+            <span class="font-headline-sm text-headline-sm text-on-surface font-bold"
+              >Ώρες Λειτουργίας • Opening Hours</span
+            >
+          </div>
+          <div class="space-y-2 text-sm">
+            <div class="flex items-center justify-between py-1">
+              <span class="text-on-surface font-medium">Τρίτη – Παρασκευή (Tue – Fri)</span>
+              <span class="font-bold text-primary">18:00 – 02:30</span>
+            </div>
+            <div class="flex items-center justify-between py-1">
+              <span class="text-on-surface font-medium">Σάββατο – Κυριακή (Sat – Sun)</span>
+              <span class="font-bold text-primary">17:30 – 03:00</span>
+            </div>
+            <div class="flex items-center justify-between py-1 bg-surface-container-low px-2.5 rounded-lg">
+              <span class="text-secondary font-bold text-xs uppercase tracking-wider flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
+                Aperitivo Hour (Daily)
+              </span>
+              <span class="text-secondary font-bold text-xs">18:30 – 20:30 (Free Bites!)</span>
+            </div>
+            <div class="flex items-center justify-between py-1 text-outline text-xs">
+              <span>Δευτέρα (Monday)</span>
+              <span>Κλειστά για vinyl hunting &amp; pasta prep</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-surface-container-lowest rounded-lg p-space-lg shadow-elevation-1 flex items-start gap-space-sm">
+          <div class="w-10 h-10 rounded-full bg-primary-fixed text-primary flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined">directions_subway</span>
+          </div>
+          <div>
+            <span class="font-title-lg text-title-lg text-on-surface font-semibold block"
+              >Πρόσβαση με Μετρό / Transit</span
+            >
+            <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+              Μετρό Γραμμή 2 (Κόκκινη) – Στάση <strong>Ηλιούπολη</strong>. Μόλις 6 λεπτά ευχάριστο περπάτημα ή 2 λεπτά με το
+              λεωφορείο 201/206.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-6 flex flex-col reveal-on-scroll">
+        <div class="relative w-full h-full min-h-[360px] rounded-lg overflow-hidden shadow-floating flex flex-col justify-end p-space-lg group">
+          <div
+            class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+            style={`background-image: url('${nightImages.map}')`}
+            role="img"
+            aria-label={`Χάρτης: ${siteDefaults.address}`}
+          ></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-on-surface/90 via-on-surface/35 to-transparent"></div>
+          <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+            <span class="material-symbols-outlined text-primary text-5xl drop-shadow-lg" style="font-variation-settings: 'FILL' 1;">
+              location_on
+            </span>
+          </div>
+          <div class="relative z-10 flex flex-col text-white">
+            <div
+              class="inline-flex items-center gap-2 bg-primary text-on-primary px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider self-start mb-2 shadow"
+            >
+              <span class="material-symbols-outlined text-[16px]">pin_drop</span>
+              <span>{siteDefaults.addressEl}</span>
+            </div>
+            <h3 class="font-headline-sm text-headline-sm font-bold text-white">Persona Spritzeria Bar</h3>
+            <p class="font-body-sm text-body-sm text-surface-variant mt-1">
+              Δίπλα στα πλατάνια, με άνετο parking στους γύρω δρόμους.
+            </p>
+            <div class="mt-space-md flex gap-2">
+              <a
+                class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-on-surface text-xs font-bold uppercase tracking-wider hover:bg-surface-container hover:scale-105 active:scale-95 transition-all shadow"
+                href={siteDefaults.mapsUrl}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <span>Google Maps</span>
+                <span class="material-symbols-outlined text-[14px]">open_in_new</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

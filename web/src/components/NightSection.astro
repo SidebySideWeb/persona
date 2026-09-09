@@ -1,0 +1,164 @@
+---
+import {FOX_MASCOT, nightImages, siteDefaults} from '../lib/fallbacks'
+
+const tracks = [
+  {title: 'Raffaella Carrà • A Far L\'amore Comincia Tu', bpm: '128 BPM'},
+  {title: 'Sophie Ellis-Bextor • Murder on the Dancefloor', bpm: '118 BPM'},
+  {title: 'Modjo • Lady (Hear Me Tonight)', bpm: '124 BPM'},
+]
+---
+
+<section class="w-full py-space-3xl bg-night text-inverse-on-surface relative overflow-hidden" id="dj-section">
+  <div class="absolute -top-32 -left-32 w-96 h-96 bg-secondary-container opacity-45 rounded-full blur-[110px] pointer-events-none"></div>
+  <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-tertiary opacity-55 rounded-full blur-[120px] pointer-events-none"></div>
+
+  <div class="site-wrap relative z-10">
+    <div class="flex flex-col items-center text-center mb-space-2xl reveal-on-scroll">
+      <div class="nightlife-badge mb-3 gap-2 shadow-[0_0_24px_rgba(232,36,108,0.75)]">
+        <span class="material-symbols-outlined text-[16px]">album</span>
+        <span>NIGHTFALL MODE • DJ SESSIONS</span>
+      </div>
+      <h2 class="font-display text-headline-lg-mobile lg:text-headline-lg text-white font-bold leading-tight text-balance">
+        Από τον ηλιόλουστο κήπο στα neon grooves
+      </h2>
+      <p class="font-body-lg text-body-lg text-surface-variant max-w-2xl mt-2">
+        Την ημέρα: ριγέ ξαπλώστρες, λεμονιές και δροσερά spritz. Το βράδυ: η ένταση ανεβαίνει με resident DJs που παίζουν
+        80s, 90s, 00s και Italo Disco.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg mb-space-2xl">
+      <div class="relative rounded-lg overflow-hidden shadow-2xl group min-h-[380px] flex flex-col justify-end p-space-lg">
+        <div
+          class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+          style={`background-image: url('${nightImages.garden}')`}
+        ></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent"></div>
+        <div class="relative z-10 flex flex-col">
+          <span class="bg-primary text-on-primary px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider self-start mb-2 shadow"
+            >18:00 – 21:00 • The Garden</span
+          >
+          <h3 class="font-headline-md text-headline-md text-white font-bold">Golden Hour Spritzeria</h3>
+          <p class="font-body-sm text-body-sm text-surface-variant mt-1">
+            Χαλαρές συζητήσεις, τραπεζάκια έξω, aperitivo bites και το αθηναϊκό ηλιοβασίλεμα να λούζει την πλατεία.
+          </p>
+        </div>
+      </div>
+      <div class="relative rounded-lg overflow-hidden shadow-2xl group min-h-[380px] flex flex-col justify-end p-space-lg">
+        <div
+          class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+          style={`background-image: url('${nightImages.club}')`}
+        ></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+        <div class="relative z-10 flex flex-col">
+          <span
+            class="bg-tertiary-container text-on-tertiary-container px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider self-start mb-2 shadow"
+            >21:30 – Late • DJ Sets</span
+          >
+          <h3 class="font-headline-md text-headline-md text-white font-bold">Electric 90s &amp; 00s Nostalgia</h3>
+          <p class="font-body-sm text-body-sm text-surface-variant mt-1">
+            Ανεβασμένες εντάσεις, Disco House, Eurodance bops και τα cocktail shakers να δίνουν τον ρυθμό.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-stretch">
+      <div class="lg:col-span-7 rounded-lg p-space-lg shadow-electric-night flex flex-col justify-between border border-white/10">
+        <div>
+          <div class="flex items-center justify-between pb-space-sm mb-space-sm">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-secondary text-2xl">graphic_eq</span>
+              <span class="font-label-sticker text-label-sticker uppercase tracking-widest text-secondary-fixed"
+                >PERSONA MIXTAPE VOL. 1</span
+              >
+            </div>
+            <div class="flex items-end gap-1 h-5 px-2 bg-black/40 rounded-full py-1">
+              <span class="w-1 bg-secondary rounded-full eq-1"></span>
+              <span class="w-1 bg-primary rounded-full eq-2"></span>
+              <span class="w-1 bg-amber-400 rounded-full eq-3"></span>
+              <span class="w-1 bg-secondary rounded-full eq-4"></span>
+            </div>
+          </div>
+          <div
+            class="flex items-center gap-space-sm p-space-sm bg-black/50 rounded-lg mb-space-md border border-white/5 cursor-pointer hover:bg-black/70 transition-colors"
+            id="vinyl-player-btn"
+            role="button"
+            tabindex="0"
+          >
+            <div class="relative w-12 h-12 shrink-0">
+              <div
+                class="w-12 h-12 rounded-full bg-neutral-900 border-2 border-neutral-700 flex items-center justify-center shadow-lg animate-spin-vinyl"
+                id="vinyl-disc"
+              >
+                <div class="w-4 h-4 rounded-full bg-secondary flex items-center justify-center">
+                  <div class="w-1 h-1 rounded-full bg-black"></div>
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-col min-w-0 flex-1">
+              <span class="text-white font-bold text-sm truncate">Gala — Freed from Desire (Italo Spritz Edit)</span>
+              <span class="text-xs text-secondary-fixed-dim">DJ Guest: Persona Resident Crew</span>
+            </div>
+            <span class="text-xs font-mono text-outline-variant pr-2">02:44 / 04:12</span>
+          </div>
+          <div class="space-y-2 text-xs">
+            {
+              tracks.map((track, i) => (
+                <div class="flex items-center justify-between p-2.5 rounded-lg bg-white/5 hover:bg-white/15 transition-all">
+                  <span class="text-white flex items-center gap-2">
+                    <span class="material-symbols-outlined text-xs text-secondary">play_arrow</span>
+                    {String(i + 1).padStart(2, '0')}. {track.title}
+                  </span>
+                  <span class="text-secondary-fixed-dim font-mono">{track.bpm}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="lg:col-span-5 bg-gradient-electric-mezzanotte/90 rounded-lg p-space-lg shadow-electric flex flex-col justify-between relative overflow-hidden border border-white/10 group"
+      >
+        <div class="absolute -right-6 -bottom-6 w-36 h-36 opacity-20">
+          <img src={FOX_MASCOT} alt="" class="w-full h-full object-contain" width="144" height="144" />
+        </div>
+        <div class="relative z-10">
+          <span class="nightlife-badge mb-3">OPEN CALL</span>
+          <h3 class="font-headline-md text-headline-md text-white font-bold leading-tight">
+            DJ Open Call — Spin with us!
+          </h3>
+          <p class="font-body-sm text-body-sm text-surface-variant mt-2 leading-relaxed">
+            Είσαι DJ και αγαπάς τα 80s, 90s, 00s, Disco &amp; Funky House; Στείλε μας το mixtape σου στο Instagram DM και
+            έλα να παίξεις στο booth της Περσόνας.
+          </p>
+        </div>
+        <div class="relative z-10 mt-space-md">
+          <a
+            class="inline-flex items-center gap-2 px-space-md py-2.5 rounded-full bg-secondary text-white font-label-lg text-label-lg uppercase tracking-wider hover:bg-secondary-container transition-all shadow-electric-badge hover:scale-105 active:scale-95"
+            href={siteDefaults.instagram}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <span>Στείλε μας DM {siteDefaults.instagramHandle}</span>
+            <span class="material-symbols-outlined text-sm">send</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const vinylBtn = document.getElementById('vinyl-player-btn')
+  const vinylDisc = document.getElementById('vinyl-disc')
+  let isPlaying = true
+
+  vinylBtn?.addEventListener('click', () => {
+    isPlaying = !isPlaying
+    if (vinylDisc) {
+      vinylDisc.style.animationPlayState = isPlaying ? 'running' : 'paused'
+    }
+  })
+</script>

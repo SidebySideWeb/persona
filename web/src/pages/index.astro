@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Header from '../components/Header.astro'
+import HeroSection from '../components/HeroSection.astro'
+import IntroSection from '../components/IntroSection.astro'
+import MenuGrid from '../components/MenuGrid.astro'
+import NightSection from '../components/NightSection.astro'
+import GallerySection from '../components/GallerySection.astro'
+import LocationSection from '../components/LocationSection.astro'
+import ReservationForm from '../components/ReservationForm.astro'
+import Footer from '../components/Footer.astro'
+import {siteDefaults} from '../lib/fallbacks'
+
+export const prerender = true
+---
+
+<BaseLayout title={siteDefaults.seoTitle} description={siteDefaults.seoDescription}>
+  <Header />
+  <main class="w-full pt-[6.5rem] lg:pt-[7.5rem] bg-surface min-h-screen">
+    <HeroSection />
+    <IntroSection />
+    <MenuGrid />
+    <NightSection />
+    <GallerySection />
+    <LocationSection />
+    <ReservationForm />
+  </main>
+  <Footer />
+</BaseLayout>

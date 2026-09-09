@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="el"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&amp;family=Outfit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}
+/* Enhanced Animations & Transitions */
+@keyframes float-fox {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-7px) rotate(1.5deg); }
+  66% { transform: translateY(-12px) rotate(-1.5deg); }
+}
+@keyframes float-bubble {
+  0% { transform: translateY(110%) translateX(0px) scale(0.6); opacity: 0; }
+  20% { opacity: 0.65; }
+  80% { opacity: 0.55; }
+  100% { transform: translateY(-120px) translateX(25px) scale(1.15); opacity: 0; }
+}
+@keyframes pulse-glow {
+  0%, 100% { transform: scale(1); opacity: 0.45; filter: blur(24px); }
+  50% { transform: scale(1.14); opacity: 0.8; filter: blur(34px); }
+}
+@keyframes disco-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes spin-vinyl {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes eq-bar {
+  0%, 100% { height: 4px; }
+  50% { height: 18px; }
+}
+@keyframes marquee-scroll {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-float-fox {
+  animation: float-fox 5.5s ease-in-out infinite;
+}
+.animate-spin-vinyl {
+  animation: spin-vinyl 4s linear infinite;
+}
+.eq-1 { animation: eq-bar 0.9s ease-in-out infinite; }
+.eq-2 { animation: eq-bar 0.6s ease-in-out 0.2s infinite; }
+.eq-3 { animation: eq-bar 1.1s ease-in-out 0.4s infinite; }
+.eq-4 { animation: eq-bar 0.75s ease-in-out 0.1s infinite; }
+
+/* Scroll reveal initial states */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal-on-scroll.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Pause marquee on hover */
+.marquee-wrapper:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"secondary-fixed-dim":"#ffb1c0","on-tertiary-container":"#fffbff","on-tertiary-fixed-variant":"#6600b7","tertiary-fixed-dim":"#dbb8ff","on-surface-variant":"#594139","outline":"#8d7167","primary-fixed":"#ffdbcf","surface":"#fff8f6","error-container":"#ffdad6","on-primary-fixed-variant":"#812900","on-primary-fixed":"#380d00","on-tertiary":"#ffffff","outline-variant":"#e1bfb4","inverse-primary":"#ffb59a","on-tertiary-fixed":"#2b0052","secondary-fixed":"#ffd9df","on-secondary-container":"#fffbff","surface-variant":"#ede0dc","primary-fixed-dim":"#ffb59a","tertiary":"#7d2dce","primary-container":"#cc4907","tertiary-fixed":"#efdbff","on-surface":"#201a18","surface-container-highest":"#ede0dc","secondary-container":"#e01b66","on-primary":"#ffffff","on-secondary-fixed-variant":"#90003d","surface-container-low":"#fef1ed","primary":"#a43700","background":"#fff8f6","on-secondary":"#ffffff","surface-container-lowest":"#ffffff","on-primary-container":"#fffbff","surface-bright":"#fff8f6","surface-dim":"#e4d7d4","on-error-container":"#93000a","on-error":"#ffffff","tertiary-container":"#974ce9","secondary":"#b70050","surface-container-high":"#f3e5e1","on-secondary-fixed":"#3f0017","inverse-surface":"#362f2c","error":"#ba1a1a","surface-tint":"#a83900","on-background":"#201a18","surface-container":"#f9ebe7","inverse-on-surface":"#fbeeea"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-3xl":"4.5rem","space-md":"1rem","margin-mobile":"1.25rem","gutter-mobile":"1rem","space-xs":"0.5rem","gutter-desktop":"2rem","space-2xs":"0.25rem","space-lg":"1.5rem","space-sm":"0.75rem","space-2xl":"3rem","space-xl":"2rem","margin-desktop":"3.5rem"},"fontFamily":{"headline-lg-mobile":["Bodoni Moda"],"headline-md":["Bodoni Moda"],"label-lg":["Outfit"],"display-hero":["Bodoni Moda"],"body-sm":["Outfit"],"body-md":["Outfit"],"label-sticker":["Bodoni Moda"],"title-lg":["Outfit"],"display-hero-mobile":["Bodoni Moda"],"headline-lg":["Bodoni Moda"],"body-lg":["Outfit"],"headline-sm":["Bodoni Moda"]},"fontSize":{"headline-lg-mobile":["32px",{"lineHeight":"38px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-md":["28px",{"lineHeight":"34px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-lg":["14px",{"lineHeight":"18px","letterSpacing":"0.06em","fontWeight":"600"}],"display-hero":["72px",{"lineHeight":"76px","letterSpacing":"-0.03em","fontWeight":"700"}],"body-sm":["13px",{"lineHeight":"18px","fontWeight":"400"}],"body-md":["15px",{"lineHeight":"22px","fontWeight":"400"}],"label-sticker":["12px",{"lineHeight":"14px","letterSpacing":"0.12em","fontWeight":"700"}],"title-lg":["20px",{"lineHeight":"26px","fontWeight":"600"}],"display-hero-mobile":["44px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-lg":["48px",{"lineHeight":"54px","letterSpacing":"-0.02em","fontWeight":"600"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"headline-sm":["22px",{"lineHeight":"28px","fontWeight":"600"}]}}}}</script></head><body class="bg-surface font-body-md text-on-surface antialiased selection:bg-primary-fixed selection:text-on-primary-fixed"><header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] transition-all duration-300"><div class="h-20 max-w-[1320px] mx-auto px-margin-mobile lg:px-margin-desktop flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-sm group"><div class="relative"><img alt="Persona Spritzeria Logo" class="w-8 h-8 rounded-full object-cover shadow-[0_2px_8px_rgba(164,55,0,0.2)] ring-1 ring-primary/20 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBhetlqyd0ek42EvGj3voQTzU8Yr_6CZqem11W0AEWgr7gX1j2j3NgDl39EIQ1CL4MGoh10AifhIXiCd5X471wnGOPGEIExjFNBRPjOBiNp-fVcworcgYxl_DXEN5TJ2fMbqP-2Ft_wW5tkjamaX2hVA2wMO_3Tcu32adxpH4h2vouT84c2r9R0gVN4Ux2OaCRkYWKZFFWaqlSGIg6dF3UuTFBgVEA7xvJWLHZI66lcoZC5O2agZHUSuWB3oxfdrY"/><span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-green-500 border-2 border-surface rounded-full animate-pulse"></span></div><div class="flex flex-col"><a class="flex items-baseline gap-1.5 focus:outline-none" data-path="home" href="#"><span class="font-headline-sm text-headline-sm uppercase tracking-tight text-on-surface font-bold transition-colors group-hover:text-primary">ΠΕΡΣΟΝΑ</span><span class="font-label-sticker text-label-sticker tracking-widest uppercase text-primary font-semibold">Spritzeria</span></a><span class="hidden sm:inline-block font-label-lg text-[10px] tracking-widest uppercase text-outline -mt-1">Ilioupoli • Athens</span></div></div><nav class="hidden xl:flex items-center gap-space-xs bg-surface-container-low px-space-xs py-space-2xs rounded-full shadow-[0_1px_4px_rgba(0,0,0,0.03)]" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-full shadow-sm"><a aria-current="page" class="px-space-md py-space-2xs tracking-wider transition-all duration-200 bg-primary-container text-on-primary-container font-semibold rounded-full shadow-sm active:scale-95" data-path="home" href="#">About</a><a class="px-space-md py-space-2xs rounded-full font-label-lg text-label-lg tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all duration-200 active:scale-95" data-path="menu" href="#menu-highlights">Menu</a><a class="px-space-md py-space-2xs rounded-full font-label-lg text-label-lg tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all duration-200 active:scale-95" data-path="dj-nights" href="#dj-section">DJ Nights</a><a class="px-space-md py-space-2xs rounded-full font-label-lg text-label-lg tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all duration-200 active:scale-95" data-path="gallery" href="#gallery-section">Gallery</a><a class="px-space-md py-space-2xs rounded-full font-label-lg text-label-lg tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all duration-200 active:scale-95" data-path="location" href="#location-section">Location</a></nav><div class="flex items-center gap-space-sm"><div class="hidden md:flex items-center gap-space-2xs bg-surface-container px-space-sm py-space-2xs rounded-full shadow-inner"><a class="font-label-lg text-[12px] font-semibold text-on-surface-variant hover:text-primary transition-all hover:scale-105 active:scale-95" href="https://instagram.com/persona_ath" rel="noopener noreferrer" target="_blank">@persona_ath</a><span class="text-outline-variant text-xs">•</span><a class="font-label-lg text-[12px] font-semibold text-on-surface-variant hover:text-secondary transition-all hover:scale-105 active:scale-95" href="https://tiktok.com/@persona.ath" rel="noopener noreferrer" target="_blank">@persona.ath</a></div><a class="inline-flex items-center justify-center px-space-lg py-space-xs rounded-full bg-primary text-on-primary font-label-lg text-label-lg uppercase tracking-wider shadow-[0_8px_24px_-6px_rgba(232,92,31,0.25)] hover:bg-primary-container hover:text-on-primary-container hover:shadow-[0_12px_28px_-4px_rgba(232,92,31,0.4)] hover:-translate-y-0.5 active:scale-95 transition-all duration-200" data-path="reserve" href="#booking-section">Κράτηση / Reserve</a></div></div></header><main class="w-full pt-20 bg-surface min-h-[calc(100vh-20rem)]"><div class="flex flex-col w-full selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- SECTION 1: HERO (Tangerine Sun Splash) with Lively Animations & Spritz Bubbles -->
+<section class="relative w-full overflow-hidden bg-primary text-on-primary -mt-20 pt-28 pb-16 lg:pb-24">
+<!-- Bubble & Sunburst Abstract SVG Ambient Layer -->
+<div class="absolute inset-0 pointer-events-none opacity-25">
+<svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<radialgradient cx="50%" cy="40%" id="sunburst" r="60%">
+<stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"></stop>
+<stop offset="100%" stop-color="#cc4907" stop-opacity="0"></stop>
+</radialgradient>
+</defs>
+<rect fill="url(#sunburst)" height="100%" width="100%"></rect>
+</svg>
+</div>
+<!-- Effervescent Rising CSS Spritz Bubbles -->
+<div aria-hidden="true" class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+<span class="absolute rounded-full border border-white/40 bg-white/20 backdrop-blur-sm" style="width: 22px; height: 22px; left: 12%; bottom: -30px; animation: float-bubble 6s infinite linear 0.2s;"></span>
+<span class="absolute rounded-full border border-white/50 bg-white/30 backdrop-blur-sm" style="width: 14px; height: 14px; left: 24%; bottom: -30px; animation: float-bubble 5.2s infinite linear 1.4s;"></span>
+<span class="absolute rounded-full border border-white/30 bg-white/15 backdrop-blur-sm" style="width: 32px; height: 32px; left: 38%; bottom: -40px; animation: float-bubble 7.5s infinite linear 0.7s;"></span>
+<span class="absolute rounded-full border border-white/60 bg-white/25 backdrop-blur-sm" style="width: 18px; height: 18px; left: 62%; bottom: -30px; animation: float-bubble 5.8s infinite linear 2.1s;"></span>
+<span class="absolute rounded-full border border-white/40 bg-white/20 backdrop-blur-sm" style="width: 26px; height: 26px; left: 78%; bottom: -35px; animation: float-bubble 6.8s infinite linear 1.1s;"></span>
+<span class="absolute rounded-full border border-white/50 bg-white/30 backdrop-blur-sm" style="width: 16px; height: 16px; left: 88%; bottom: -20px; animation: float-bubble 4.9s infinite linear 2.8s;"></span>
+</div>
+<div class="max-w-[1320px] mx-auto px-margin-mobile lg:px-margin-desktop relative z-10 flex flex-col items-center text-center">
+<!-- Mascot Wink Banner Badge with subtle hover lift -->
+<div class="inline-flex items-center gap-space-xs bg-surface-container-lowest/95 text-on-surface px-space-md py-space-2xs rounded-full shadow-md -rotate-1 hover:rotate-0 hover:scale-105 active:scale-95 transition-all duration-300 mb-space-lg cursor-pointer">
+<img alt="Persona Spritzeria Fox Mascot" class="w-7 h-7 object-contain rounded-full bg-primary-fixed p-0.5 animate-bounce" src="https://lh3.googleusercontent.com/aida/AEtjO1U2upxTwKTxvgoPY9y9dmBuepOlBsBo945iefpsvJml1618EPEkG8yk3rnh98YTzEWqaIDxXBAXKVMUtxxIYKwP87JaG9mhxZDIIc3IPvEQo2SQH1H502lTfLMLJDDtVgj5Ao7r6-k6arctrcDiaWao7wX5PnyGnOeX8yJm8hrE_8DG-fu_JQv1KqvE_vGmSSG-JBCec-NFLdH-3Rm_1mGl0juYRON6xrk9kSm0CoV0kQK_Fvd-JVVw" style="animation-duration: 2.2s;"/>
+<span class="font-label-sticker text-label-sticker tracking-widest text-primary uppercase">ILIOUPOLI • SUN CITY • ATHENS</span>
+<span class="text-secondary font-bold text-sm inline-block hover:animate-wiggle">🦊</span>
+</div>
+<!-- Main Bilingual Editorial Hero Typography -->
+<div class="flex flex-col items-center max-w-4xl mx-auto reveal-on-scroll">
+<span class="font-label-lg text-label-lg tracking-[0.25em] text-primary-fixed uppercase mb-2">90s–00s • ΙΤΑΛΙΚΑ • SPRITZ BAR</span>
+<h1 class="font-display-hero text-display-hero uppercase tracking-tight text-on-primary drop-shadow-md leading-none mb-2">
+          ΠΕΡΣΟΝΑ
+        </h1>
+<p class="font-display-hero-mobile text-headline-lg italic font-normal tracking-wide text-primary-fixed-dim -mt-1 mb-space-md">
+          Spritzeria
+        </p>
+<p class="font-body-lg text-body-lg text-primary-fixed max-w-xl mx-auto font-medium leading-relaxed">
+          “Girls just wanna have Spritz.” Ένα φωτεινό, αυθεντικό aperitivo καταφύγιο στην Ηλιούπολη που το βράδυ ανάβει τα decks.
+        </p>
+<span class="font-body-sm text-body-sm text-primary-fixed/80 italic mt-1">Sun-drenched Mediterranean bubbles turning into eclectic vinyl beats.</span>
+</div>
+<!-- Mascot Spotlight Cutout & Stamp Tag with Continuous Float + Hover Reactions -->
+<div class="relative my-space-lg flex items-center justify-center reveal-on-scroll">
+<!-- Pulsing ambient glow backer -->
+<div class="absolute w-56 h-56 sm:w-72 sm:h-72 bg-amber-400 rounded-full pointer-events-none" style="animation: pulse-glow 3.8s ease-in-out infinite;"></div>
+<div class="w-48 h-48 sm:w-60 sm:h-60 bg-surface-container-lowest rounded-full p-3.5 shadow-2xl relative group cursor-pointer transition-all duration-500 hover:scale-105 active:scale-95 animate-float-fox">
+<div class="w-full h-full rounded-full overflow-hidden flex items-center justify-center p-2.5 bg-[#E85C1F] shadow-inner transition-transform duration-500 group-hover:scale-102">
+<img alt="Persona Spritzeria Fox Mascot" class="w-full h-full object-contain p-2 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-3" src="https://lh3.googleusercontent.com/aida/AEtjO1U2upxTwKTxvgoPY9y9dmBuepOlBsBo945iefpsvJml1618EPEkG8yk3rnh98YTzEWqaIDxXBAXKVMUtxxIYKwP87JaG9mhxZDIIc3IPvEQo2SQH1H502lTfLMLJDDtVgj5Ao7r6-k6arctrcDiaWao7wX5PnyGnOeX8yJm8hrE_8DG-fu_JQv1KqvE_vGmSSG-JBCec-NFLdH-3Rm_1mGl0juYRON6xrk9kSm0CoV0kQK_Fvd-JVVw"/>
+</div>
+<div class="absolute -bottom-2 -right-3 bg-secondary text-on-secondary px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg rotate-6 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110">EST. 2024 ✨</div>
+<div class="absolute -top-3 -left-4 bg-surface text-on-surface px-3 py-1 rounded shadow-md -rotate-6 font-label-sticker text-[11px] uppercase tracking-wider text-primary transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110">3 GIRLS &amp; A FOX</div>
+</div>
+</div>
+<!-- Hero Action CTAs with Squish / Glow Animations -->
+<div class="flex flex-col sm:flex-row items-center gap-space-sm w-full sm:w-auto justify-center mt-space-xs reveal-on-scroll">
+<a class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-space-xl py-3.5 rounded-full bg-surface-container-lowest text-primary hover:bg-surface-container-low font-label-lg text-label-lg uppercase tracking-wider shadow-lg hover:shadow-2xl hover:-translate-y-1 hover:scale-105 active:scale-95 transition-all duration-200" href="#menu-highlights">
+<span class="material-symbols-outlined text-[20px] transition-transform duration-300 group-hover:rotate-12">local_bar</span>
+<span class="">Δες το μενού / See the menu</span>
+</a>
+<a class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-space-xl py-3.5 rounded-full bg-secondary text-on-secondary hover:bg-secondary-container font-label-lg text-label-lg uppercase tracking-wider shadow-lg hover:shadow-[0_8px_30px_rgba(224,27,102,0.5)] hover:-translate-y-1 hover:scale-105 active:scale-95 transition-all duration-200" href="#booking-section">
+<span class="material-symbols-outlined text-[20px]">event_seat</span>
+<span class="">Κράτηση / Reserve a table</span>
+</a>
+</div>
+<!-- Social Pill Handles -->
+<div class="flex items-center justify-center gap-space-sm mt-space-lg reveal-on-scroll">
+<a class="inline-flex items-center gap-1.5 bg-surface/20 backdrop-blur-md px-space-sm py-1 rounded-full text-xs font-medium text-white hover:bg-surface/35 hover:scale-105 active:scale-95 transition-all" href="https://instagram.com/persona_ath" rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined text-sm">photo_camera</span>
+<span class="">@persona_ath</span>
+<span class="bg-surface-container-lowest/30 text-[10px] px-1.5 py-0.5 rounded-full">5.1k 🦊</span>
+</a>
+<a class="inline-flex items-center gap-1.5 bg-surface/20 backdrop-blur-md px-space-sm py-1 rounded-full text-xs font-medium text-white hover:bg-surface/35 hover:scale-105 active:scale-95 transition-all" href="https://tiktok.com/@persona.ath" rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined text-sm">videocam</span>
+<span class="">@persona.ath</span>
+<span class="bg-surface-container-lowest/30 text-[10px] px-1.5 py-0.5 rounded-full">TikTok</span>
+</a>
+</div>
+</div>
+<!-- Scrolling Marquee Band Divider with Interactive Hover-Pause & Zero-Stutter Loop -->
+<div class="mt-space-2xl w-full bg-surface-container-lowest text-on-surface overflow-hidden py-3 shadow-inner marquee-wrapper cursor-pointer select-none">
+<div class="marquee-track flex whitespace-nowrap gap-6 font-headline-sm text-headline-sm uppercase tracking-wider items-center text-primary font-bold" style="width: max-content; animation: marquee-scroll 24s linear infinite;">
+<span class="">90s–00s</span>
+<span class="text-secondary">•</span>
+<span class="">ITALIAN</span>
+<span class="text-secondary">•</span>
+<span class="">SPRITZ</span>
+<span class="text-secondary">•</span>
+<span class="">GIRLS JUST WANNA HAVE SPRITZ</span>
+<span class="text-secondary">•</span>
+<span class="">APEROL HOUR</span>
+<span class="text-secondary">•</span>
+<span class="">ILIOUPOLI SUN CITY</span>
+<span class="text-secondary">•</span>
+<img alt="Fox mascot" class="w-6 h-6 inline-block object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1U2upxTwKTxvgoPY9y9dmBuepOlBsBo945iefpsvJml1618EPEkG8yk3rnh98YTzEWqaIDxXBAXKVMUtxxIYKwP87JaG9mhxZDIIc3IPvEQo2SQH1H502lTfLMLJDDtVgj5Ao7r6-k6arctrcDiaWao7wX5PnyGnOeX8yJm8hrE_8DG-fu_JQv1KqvE_vGmSSG-JBCec-NFLdH-3Rm_1mGl0juYRON6xrk9kSm0CoV0kQK_Fvd-JVVw"/>
+<span class="text-secondary">•</span>
+<span class="">NATURAL BUBBLES</span>
+<span class="text-secondary">•</span>
+<span class="">WOOD-FIRED PIZZAIOLO</span>
+<span class="text-secondary">•</span>
+<!-- Repeated block for continuous seamless loop -->
+<span class="">90s–00s</span>
+<span class="text-secondary">•</span>
+<span class="">ITALIAN</span>
+<span class="text-secondary">•</span>
+<span class="">SPRITZ</span>
+<span class="text-secondary">•</span>
+<span class="">GIRLS JUST WANNA HAVE SPRITZ</span>
+<span class="text-secondary">•</span>
+<span class="">APEROL HOUR</span>
+<span class="text-secondary">•</span>
+<span class="">ILIOUPOLI SUN CITY</span>
+<span class="text-secondary">•</span>
+<img alt="Fox mascot" class="w-6 h-6 inline-block object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1U2upxTwKTxvgoPY9y9dmBuepOlBsBo945iefpsvJml1618EPEkG8yk3rnh98YTzEWqaIDxXBAXKVMUtxxIYKwP87JaG9mhxZDIIc3IPvEQo2SQH1H502lTfLMLJDDtVgj5Ao7r6-k6arctrcDiaWao7wX5PnyGnOeX8yJm8hrE_8DG-fu_JQv1KqvE_vGmSSG-JBCec-NFLdH-3Rm_1mGl0juYRON6xrk9kSm0CoV0kQK_Fvd-JVVw"/>
+<span class="text-secondary">•</span>
+<span class="">NATURAL BUBBLES</span>
+<span class="text-secondary">•</span>
+<span class="">WOOD-FIRED PIZZAIOLO</span>
+<span class="text-secondary">•</span>
+</div>
+</div>
+</section>
+<!-- SECTION 2: ABOUT / Η ΙΣΤΟΡΙΑ ΜΑΣ (OUR STORY) -->
+<section class="w-full py-space-3xl bg-surface">
+<div class="max-w-[1320px] mx-auto px-margin-mobile lg:px-margin-desktop">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-center">
+<!-- Left Column: Story Editorial -->
+<div class="lg:col-span-7 flex flex-col gap-space-md reveal-on-scroll">
+<div class="inline-flex items-center gap-2">
+<span class="bg-surface-container px-3 py-1 rounded-full font-label-sticker text-label-sticker uppercase text-primary tracking-widest -rotate-2 hover:rotate-0 transition-transform">
+              LA STORIA • Η ΙΔΕΑ
+            </span>
+<span class="text-xs text-outline uppercase tracking-wider font-semibold">EST. ILIOUPOLI ATHENS</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-bold leading-tight">
+            Τρεις φίλες, ένα Spritz bar &amp; η αιώνια ηλιόλουστη διάθεση της Ηλιούπολης.
+          </h2>
+<p class="font-title-lg text-title-lg text-primary font-medium italic -mt-2">
+            "We built the living room we always dreamed of partying in."
+          </p>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+            Η Περσόνα γεννήθηκε από τρία κορίτσια που κουράστηκαν από τα συνηθισμένα bars. Θέλαμε ατόφια ιταλική aperitivo κουλτούρα: τραγανές focaccia, μυρωδάτα spritz με artisanal bitters, ατελείωτες κουβέντες κάτω από λεμονιές και, όσο πέφτει το φως, 80s, 90s και 00s ύμνους που σε κάνουν να σηκώνεσαι από το τραπέζι.
+          </p>
+<div class="p-space-md bg-surface-container-low rounded-xl shadow-sm flex items-start gap-space-sm border-l-4 border-primary transition-all duration-300 hover:shadow-md">
+<span class="material-symbols-outlined text-primary text-3xl">format_quote</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">«Η επόμενη στάση είναι γνωστή.»</span>
+<span class="font-body-sm text-body-sm text-outline italic">Next station: Ilioupoli Sun City. Spritz first, questions later.</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm pt-space-xs">
+<div class="flex items-center gap-2 bg-surface-container px-space-sm py-2 rounded-lg text-xs font-semibold text-on-surface transition-all duration-200 hover:bg-surface-container-high hover:scale-105 cursor-default">
+<span class="material-symbols-outlined text-primary text-[18px]">favorite</span>
+<span class="">100% Female Founded</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container px-space-sm py-2 rounded-lg text-xs font-semibold text-on-surface transition-all duration-200 hover:bg-surface-container-high hover:scale-105 cursor-default">
+<span class="material-symbols-outlined text-secondary text-[18px]">local_pizza</span>
+<span class="">Open-Flame Pizzaiolo</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container px-space-sm py-2 rounded-lg text-xs font-semibold text-on-surface transition-all duration-200 hover:bg-surface-container-high hover:scale-105 cursor-default">
+<span class="material-symbols-outlined text-tertiary text-[18px]">graphic_eq</span>
+<span class="">Eclectic DJ Grooves</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Interactive Cardboard Unboxing Card with Tape Peel Micro-interaction -->
+<div class="lg:col-span-5 relative reveal-on-scroll">
+<div aria-expanded="false" aria-label="Unbox Persona secrets" class="cursor-pointer group relative bg-surface-container-high rounded-2xl p-space-lg shadow-xl hover:shadow-2xl transition-all duration-500 border border-primary/10 overflow-hidden select-none" id="unboxing-box" role="button" tabindex="0">
+<!-- Packaging Tape Sticker Graphic with interactive peel rotation -->
+<div class="absolute -top-3 left-10 bg-primary-fixed text-on-primary-fixed text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 shadow-md -rotate-3 transition-transform duration-500 group-hover:rotate-0 group-hover:scale-105" id="tape-banner">
+              FRAGILE • SPRITZ INSIDE 📦
+</div>
+<div class="absolute -bottom-3 right-6 bg-surface-dim text-on-surface-variant text-[10px] font-mono tracking-widest px-3 py-1 shadow rotate-2 transition-transform duration-300 group-hover:rotate-6">
+              BATCH #042-ATH
+</div>
+<div class="flex items-center justify-between pb-space-sm mb-space-sm bg-surface-container-highest px-3.5 py-2.5 rounded-xl transition-colors group-hover:bg-primary-fixed/40">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl transition-transform duration-300 group-hover:rotate-12">inventory_2</span>
+<span class="font-label-sticker text-label-sticker text-on-surface tracking-wider uppercase font-bold">UNBOXING PERSONA 📦</span>
+</div>
+<span class="text-xs bg-primary text-on-primary px-3 py-0.5 rounded-full font-bold shadow-sm transition-all duration-300 group-hover:scale-105" id="unboxing-badge">Click to Open</span>
+</div>
+<!-- Fox Mascot Peeking -->
+<div class="flex items-center gap-space-sm mb-space-md">
+<div class="relative">
+<img alt="Persona authentic fox mascot" class="w-16 h-16 object-contain rounded-full bg-[#E85C1F] p-1.5 shadow-md group-hover:rotate-12 group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AEtjO1U2upxTwKTxvgoPY9y9dmBuepOlBsBo945iefpsvJml1618EPEkG8yk3rnh98YTzEWqaIDxXBAXKVMUtxxIYKwP87JaG9mhxZDIIc3IPvEQo2SQH1H502lTfLMLJDDtVgj5Ao7r6-k6arctrcDiaWao7wX5PnyGnOeX8yJm8hrE_8DG-fu_JQv1KqvE_vGmSSG-JBCec-NFLdH-3Rm_1mGl0juYRON6xrk9kSm0CoV0kQK_Fvd-JVVw"/>
+<span class="absolute -bottom-1 -right-1 text-sm">✨</span>
+</div>
+<div>
+<span class="font-headline-sm text-headline-sm text-on-surface block leading-tight">Οι 3 της Περσόνας</span>
+<span class="text-xs text-outline uppercase tracking-wider">Eleni, Maria, Christina</span>
+</div>
+</div>
+<!-- Reveal Body with Toggle Behavior & Springy animation -->
+<div class="space-y-3 font-body-sm text-body-sm text-on-surface-variant transition-all duration-500" id="unboxing-content">
+<div class="p-3 bg-surface-container rounded-xl shadow-xs transition-all duration-300 hover:bg-surface-container-lowest hover:translate-x-1">
+<strong class="text-primary block font-semibold text-xs uppercase tracking-wider flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary inline-block"></span>01. Το μυστικό του Spritz:
+</strong>
+<span class="mt-0.5 block">Χειροποίητο σιρόπι περγαμόντο και prosecco από μικρό οινοποιείο στο Veneto.</span>
+</div>
+<div class="p-3 bg-surface-container rounded-xl shadow-xs transition-all duration-300 hover:bg-surface-container-lowest hover:translate-x-1">
+<strong class="text-secondary block font-semibold text-xs uppercase tracking-wider flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary inline-block"></span>02. Γιατί Αλεπού; (The Mascot):
+</strong>
+<span class="mt-0.5 block">Γιατί είναι παιχνιδιάρα, απρόβλεπτη και ξέρει πού κρύβεται το καλύτερο πάρτι στην πόλη!</span>
+</div>
+<div class="p-3 bg-surface-container rounded-xl shadow-xs transition-all duration-300 hover:bg-surface-container-lowest hover:translate-x-1">
+<strong class="text-tertiary block font-semibold text-xs uppercase tracking-wider flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary inline-block"></span>03. Vinyl &amp; 00s Anthems:
+</strong>
+<span class="mt-0.5 block">Από Raffaella Carrà μέχρι Gwen Stefani &amp; Nu-Disco edits.</span>
+</div>
+</div>
+<div class="mt-space-md text-center">
+<span class="text-[11px] font-bold uppercase tracking-widest text-primary group-hover:text-primary-container inline-flex items-center gap-1.5 transition-all">
+<span class="">Έλα να μας γνωρίσεις από κοντά</span>
+<span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:translate-x-1.5">arrow_forward</span>
+</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 3: SPRITZ & APERITIVO HIGHLIGHTS / ΤΟ ΜΕΝΟΥ with Interactive Filter Tabs & 3D Tilt Cards -->
+<section class="w-full py-space-3xl bg-surface-container-low relative" id="menu-highlights">
+<div class="max-w-[1320px] mx-auto px-margin-mobile lg:px-margin-desktop">
+<!-- Section Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-space-xl gap-space-md reveal-on-scroll">
+<div class="flex flex-col gap-2">
+<div class="inline-flex items-center gap-2">
+<span class="bg-primary text-on-primary font-label-sticker text-label-sticker tracking-widest px-3 py-1 rounded-full uppercase -rotate-1 hover:rotate-0 transition-transform">
+              SAMPLE MENU / ΠΡΟΤΑΣΕΙΣ
+            </span>
+<span class="text-xs uppercase tracking-wider text-outline font-semibold">APERITIVO &amp; BITES</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-bold">
+            Spritzology &amp; Wood-Fired Treats
+          </h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xl">
+            Αφρώδεις φυσαλίδες, φρέσκα εσπεριδοειδή και καυτή ζύμη focaccia με 48ωρη ωρίμανση.
+          </p>
+</div>
+<div class="flex items-center gap-3">
+<!-- Interactive Category Filter Pills -->
+<div class="flex items-center gap-1.5 bg-surface p-1 rounded-full shadow-xs border border-outline-variant/30">
+<button class="menu-filter-btn px-3.5 py-1 text-xs font-bold rounded-full bg-primary text-on-primary transition-all active:scale-95" data-filter="all">Όλα / All</button>
+<button class="menu-filter-btn px-3.5 py-1 text-xs font-medium rounded-full text-on-surface-variant hover:text-primary transition-all active:scale-95" data-filter="spritz">Spritzes</button>
+<button class="menu-filter-btn px-3.5 py-1 text-xs font-medium rounded-full text-on-surface-variant hover:text-primary transition-all active:scale-95" data-filter="bites">Bites &amp; Focaccia</button>
+</div>
+<a class="hidden sm:inline-flex items-center gap-2 px-space-md py-2 rounded-full bg-surface-container text-on-surface hover:bg-primary hover:text-on-primary font-label-lg text-xs uppercase tracking-wider shadow-xs transition-all active:scale-95" href="#booking-section">
+<span>PDF Menu</span>
+<span class="material-symbols-outlined text-[16px]">download</span>
+</a>
+</div>
+</div>
+<!-- Grid of Cocktail & Food Cards with 3D Tilt & Glass-morphic sheen reflection -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg">
+<!-- 1. Classic Persona Spritz -->
+<div class="menu-card group bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col justify-between relative overflow-hidden border border-transparent hover:border-primary/20 hover:-translate-y-1.5" data-category="spritz">
+<!-- Glass sheen effect -->
+<div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none"></div>
+<div class="absolute -top-3 right-6 bg-primary-container text-on-primary-container text-[11px] font-bold uppercase tracking-wider px-3 py-0.5 rounded-full shadow-sm animate-pulse" style="animation-duration: 3s;">
+            House Signature 🦊
+          </div>
+<div>
+<div class="h-44 rounded-xl overflow-hidden mb-space-md relative">
+<img class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700" data-alt="Vibrant orange Aperol spritz cocktail in a large crystal wine glass with an orange slice and ice cubes glistening under bright Greek golden hour sunlight on an outdoor bistro marble table with blurry lemon tree background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOoY0TLYP1MWAxOehXQI4sx-bqn7nKGLvakNHCDvH44JMHITHTTo1KiOUBonqQ7i1rxrXcBP8IOZdiRmWPGuBGWvx5hVo4Kw5verxRgqnFJEuc8ymlsIm9Qk4UkUzNqZAj2V9VwIuf2yKzDiUHzrrnZU8Q6EukAw7ruE0uMk7CbZ3R3bjKKDkNSZQikrKh2A64BXX3Ee8SAl4o14wBOu2W3--0SmvniWrcp-JKdK-h8V6l_Mmycg"/>
+<div class="absolute top-2 left-2 bg-black/40 backdrop-blur-md px-2 py-0.5 rounded text-[10px] text-white font-mono">DOC Veneto</div>
+</div>
+<div class="flex items-baseline justify-between mb-1">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold group-hover:text-primary transition-colors">Classic Persona Spritz</h3>
+<span class="font-title-lg text-title-lg font-bold text-primary">€8.50</span>
+</div>
+<span class="text-xs uppercase tracking-wider text-outline block mb-2 font-medium">The Ilioupoli Sunset</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Aperol, Prosecco Superiore DOC, artisanal bergamot soda, fresh ruby orange slice &amp; organic Castelvetrano olive.
+            </p>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between text-xs text-outline font-semibold border-t border-surface-container">
+<span class="">Citrusy • Bittersweet • Sparkly</span>
+<span class="text-primary text-[11px] uppercase tracking-wider font-bold group-hover:scale-105 transition-transform">★ Favorite</span>
+</div>
+</div>
+<!-- 2. Hugo Persona -->
+<div class="menu-card group bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col justify-between relative overflow-hidden border border-transparent hover:border-primary/20 hover:-translate-y-1.5" data-category="spritz">
+<div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none"></div>
+<div>
+<div class="h-44 rounded-xl overflow-hidden mb-space-md relative">
+<img class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700" data-alt="Refreshing Hugo cocktail in balloon glass garnished with vibrant green mint leaves, lime wheel, and elderflower liqueur over crushed clear ice on a warm sun-drenched cafe counter" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdmmY5vRPmBoIEz-jrIuuA9yY-WFUAH5nl5Gl1uO0yxjJYaWAeuaQkKBMer2ZazOfvWvyluNa4F-4rsAFWDiD20UowTVU-VIZYpcVU_vUPRzPP1xL40kBxLC_8MsPajIxuPMf8MJPFKTT6qFb4IxmMY6keuzG7ZI17q4pRS8C3RHLsmNxRD1f4E-znhHekJ2TDeKgihCshV3mH-OO5wi5-Y0k61P3t6s8AkTr-EpK6aK4aPaBFSQ"/>
+<div class="absolute top-2 left-2 bg-black/40 backdrop-blur-md px-2 py-0.5 rounded text-[10px] text-white font-mono">Elderflower &amp; Mint</div>
+</div>
+<div class="flex items-baseline justify-between mb-1">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold group-hover:text-primary transition-colors">Hugo Persona</h3>
+<span class="font-title-lg text-title-lg font-bold text-primary">€9.00</span>
+</div>
+<span class="text-xs uppercase tracking-wider text-outline block mb-2 font-medium">Floral &amp; Fresh</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              St. Germain elderflower liqueur, wild fresh Athenian spearmint, green lime juice, prosecco &amp; soda water.
+            </p>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between text-xs text-outline font-semibold border-t border-surface-container">
+<span class="">Floral • Minty • Crisp</span>
+<span class="text-secondary text-[11px] uppercase tracking-wider font-bold">Super Refreshing</span>
+</div>
+</div>
+<!-- 3. Limoncello Summer Fizz -->
+<div class="menu-card group bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col justify-between relative overflow-hidden border border-transparent hover:border-primary/20 hover:-translate-y-1.5" data-category="spritz">
+<div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none"></div>
+<div>
+<div class="h-44 rounded-xl overflow-hidden mb-space-md relative">
+<img class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700" data-alt="Bright yellow Limoncello spritz drink in long-stem glass with fresh basil sprig, lemon peel twist, and bubbles glistening against afternoon sunlight on an Italian-style terrace" src="https://lh3.googleusercontent.com/aida-public/AB6AXuATlp0SRBoysnhuHo1gnYTIXFByEcjCRdwfteOQIDzhBzjPfe074bF9tjuPXAlMxccrPyFsD_haH1XJSY92KbPXAheZ6VV3a9ngZHXX5p4b-ZTYfABsAbD0CGmRkCAV0FAw-cNE8IoAAwZWJJkVcn9hmT8MTWoHkznVHivpxIEz088VZVSZgtMtmRHQeExjbqp7xQg4SOSFnYnec_9RKnF2ueDPXyqKnqBhoEfARiV5-75gyFOx8w"/>
+<div class="absolute top-2 left-2 bg-black/40 backdrop-blur-md px-2 py-0.5 rounded text-[10px] text-white font-mono">Amalfi Craft</div>
+</div>
+<div class="flex items-baseline justify-between mb-1">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold group-hover:text-primary transition-colors">Limoncello Fizz</h3>
+<span class="font-title-lg text-title-lg font-bold text-primary">€8.50</span>
+</div>
+<span class="text-xs uppercase tracking-wider text-outline block mb-2 font-medium">Amalfi Nostalgia</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Artisanal Amalfi limoncello, Mediterranean tonic, fresh sweet basil leaves &amp; prosecco brut.
+            </p>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between text-xs text-outline font-semibold border-t border-surface-container">
+<span class="">Zesty • Herbaceous • Lively</span>
+<span class="text-primary text-[11px] uppercase tracking-wider font-bold">Sun City Pick</span>
+</div>
+</div>
+<!-- 4. Campari Seltz & Bitter Rosa -->
+<div class="menu-card group bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col justify-between relative overflow-hidden border border-transparent hover:border-primary/20 hover:-translate-y-1.5" data-category="spritz">
+<div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none"></div>
+<div>
+<div class="h-44 rounded-xl overflow-hidden mb-space-md relative">
+<img class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700" data-alt="Deep ruby red Campari seltz cocktail with grapefruit slice and pink foam in retro faceted highball glass illuminated by dramatic late afternoon bar lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeuDcM6BYO96iYeBsSYr96Icr6G6LEsMj0PrmjvFebjSHjqg4BozRLtlz1hK7KpT2HNiBuTKJa-2vqEBv9aI8IOsbuj2GwJp4HxQ2ZhuznuQxx6BCXq6WTQK3fJqhvzDQbmbukdhd_c8VUiGT1sGQ1E0qpLXyZI35AWYkc31D7_22hVlly4b4anUSd7aKmoE-e36LuA2OND60nRaIli-vMvu-9G6PKR_KyFZZ_eSJiF1vDotSZYg"/>
+<div class="absolute top-2 left-2 bg-black/40 backdrop-blur-md px-2 py-0.5 rounded text-[10px] text-white font-mono">Milano Classic</div>
+</div>
+<div class="flex items-baseline justify-between mb-1">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold group-hover:text-primary transition-colors">Bitter Rosa Seltz</h3>
+<span class="font-title-lg text-title-lg font-bold text-primary">€9.00</span>
+</div>
+<span class="text-xs uppercase tracking-wider text-outline block mb-2 font-medium">Bold Milanese Bitters</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Campari, pink grapefruit reduction, premium high-pressure seltz water &amp; aromatic rosemary sprig.
+            </p>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between text-xs text-outline font-semibold border-t border-surface-container">
+<span class="">Bold • Botanical • Dry</span>
+<span class="text-outline text-[11px] uppercase tracking-wider font-bold">For Purists</span>
+</div>
+</div>
+<!-- 5. Wood-Fired Pizzaiolo Focaccia -->
+<div class="menu-card group bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col justify-between relative overflow-hidden border border-transparent hover:border-primary/20 hover:-translate-y-1.5" data-category="bites">
+<div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none"></div>
+<div class="absolute -top-3 right-6 bg-secondary text-on-secondary text-[11px] font-bold uppercase tracking-wider px-3 py-0.5 rounded-full shadow-sm animate-pulse" style="animation-duration: 2.6s;">
+            Viral TikTok 🍕
+          </div>
+<div>
+<div class="h-44 rounded-xl overflow-hidden mb-space-md relative">
+<img class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700" data-alt="Golden crisp wood-fired focaccia and marinara flatbread bubbling with tomato sauce, fresh oregano, sea salt crystals, and drizzled olive oil steaming hot on wooden board" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABcLDQ7KY9PgKUMTuRYkbsaTMV4hWdR3o227-thmoSEOzVSd9Vg_NgUFneKRSSoDCDVYEbs-MjgTBQiLTKw7zueT0Fr3O2gA-RooI8w4xreBQs5CsLSCg0XmFaZxY9beD21BlJ5dvsuABHoia8V3aosdt8ggiCGlLNL8P_k4mKoNHLHVyAj-ZtKPifX6ZF0M6ZHx3Wa-yhoFudCRJHPD9Oc7uEYguoRzrZQMNdE-txN3rK2gDcig"/>
+<div class="absolute top-2 left-2 bg-black/40 backdrop-blur-md px-2 py-0.5 rounded text-[10px] text-white font-mono">Open Flame 450°C</div>
+</div>
+<div class="flex items-baseline justify-between mb-1">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold group-hover:text-primary transition-colors">Pizzaiolo Focaccia</h3>
+<span class="font-title-lg text-title-lg font-bold text-primary">€7.50</span>
+</div>
+<span class="text-xs uppercase tracking-wider text-outline block mb-2 font-medium">Wood-Fired Crust</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              48ωρη ζύμη ωρίμανσης, San Marzano marinara, ρίγανη Ηπείρου, χοντρό αλάτι &amp; έξτρα παρθένο ελαιόλαδο.
+            </p>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between text-xs text-outline font-semibold border-t border-surface-container">
+<span class="">Crispy • Fluffy • Warm</span>
+<span class="text-secondary text-[11px] uppercase tracking-wider font-bold">Baked to Order</span>
+</div>
+</div>
+<!-- 6. Tagliere Misto Aperitivo Board -->
+<div class="menu-card group bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col justify-between relative overflow-hidden border border-transparent hover:border-primary/20 hover:-translate-y-1.5" data-category="bites">
+<div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none"></div>
+<div>
+<div class="h-44 rounded-xl overflow-hidden mb-space-md relative">
+<img class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700" data-alt="Artisanal Italian charcuterie board with thinly sliced prosciutto di Parma, wedges of gorgonzola dolce, green Castelvetrano olives, crunchy taralli crackers and honey pot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSJCb02lzQiF4ujfTujzsTfNMKHkOtLh5hEln6AqcAai840z1baiOyD7kruilAQgeUFfrO-sIs-4w37Mv8FM5Il1S8aYwlKgTU-XZpFxe5SuiAbecozLswW1GYh2V8JgHrdromk_ktkK-cFhygF2dPSG0WgbWDn7bwOIHkMHOX2C7t1pyCpFRcHbfqu-6hrjpmO1KvscCY0sTEYqcXCCjeBL4FXIfqW0IKDj5Cg_SXJudxIW54BQ"/>
+<div class="absolute top-2 left-2 bg-black/40 backdrop-blur-md px-2 py-0.5 rounded text-[10px] text-white font-mono">DOP Selection</div>
+</div>
+<div class="flex items-baseline justify-between mb-1">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold group-hover:text-primary transition-colors">Tagliere Misto Board</h3>
+<span class="font-title-lg text-title-lg font-bold text-primary">€13.50</span>
+</div>
+<span class="text-xs uppercase tracking-wider text-outline block mb-2 font-medium">Sharing is Caring</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Prosciutto di Parma 24 μηνών, Gorgonzola Dolce, ελιές Castelvetrano, τραγανά taralli Puglia &amp; μέλι.
+            </p>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between text-xs text-outline font-semibold border-t border-surface-container">
+<span class="">Savory • Creamy • To Share</span>
+<span class="text-outline text-[11px] uppercase tracking-wider font-bold">2–3 Persons</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 4: THE VIBE / Η ΒΡΑΔΙΑ ΜΑΣ — DJ NIGHTS & GARDEN -->
+<section class="w-full py-space-3xl bg-inverse-surface text-inverse-on-surface relative overflow-hidden" id="dj-section">
+<!-- Ambient Neon Electric Glows with subtle shifting disco aurora -->
+<div class="absolute -top-32 -left-32 w-96 h-96 bg-secondary-container opacity-45 rounded-full blur-[110px] pointer-events-none animate-pulse" style="animation-duration: 7s;"></div>
+<div class="absolute -bottom-32 -right-32 w-96 h-96 bg-tertiary opacity-55 rounded-full blur-[120px] pointer-events-none animate-pulse" style="animation-duration: 5.5s;"></div>
+<div class="max-w-[1320px] mx-auto px-margin-mobile lg:px-margin-desktop relative z-10">
+<!-- Section Title & Badge with neon pulsing glow -->
+<div class="flex flex-col items-center text-center mb-space-2xl reveal-on-scroll">
+<div class="inline-flex items-center gap-2 bg-secondary text-on-secondary px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest shadow-[0_0_24px_rgba(232,36,108,0.75)] mb-3 animate-pulse" style="animation-duration: 2.2s;">
+<span class="material-symbols-outlined text-[16px] animate-spin" style="animation-duration: 6s;">album</span>
+<span class="">NIGHTFALL MODE • DJ SESSIONS</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-white font-bold leading-tight">
+          Από τον ηλιόλουστο κήπο στα neon grooves
+        </h2>
+<p class="font-body-lg text-body-lg text-surface-variant max-w-2xl mt-2">
+          Την ημέρα: ριγέ ξαπλώστρες, λεμονιές και δροσερά spritz. Το βράδυ: η ένταση ανεβαίνει με resident DJs που παίζουν 80s, 90s, 00s και Italo Disco.
+        </p>
+</div>
+<!-- Day vs Night Split Showcase -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg mb-space-2xl">
+<!-- Day Garden Card -->
+<div class="relative rounded-2xl overflow-hidden shadow-2xl group min-h-[380px] flex flex-col justify-end p-space-lg transition-transform duration-500 hover:-translate-y-1">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-108" data-alt="Sunlit Mediterranean garden terrace with retro red and white striped canvas deck chairs, terracotta planters with lush green lemon trees, string festoon lightbulbs overhead, and guests enjoying orange spritz cocktails" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDfMpRKpV1szkepJrFg7gImUAVHHl0M7jpvuxclTx7WreU5rI9rv3gqnusaIvzK6HdQejSimwk5G-D91zCfet1CKUZpoujEBZkYuiCLBlYmbiXAFpjUjvyRyU8rlf0zhEyPNYqc6i8LDiZdjcfpU6Wi_TeQ79s37EI1UTngfDWpnOLgsDrVLqgSMF6tR-QoXW0xxeVI48k4OA9OvtlPHa-K2yVS2Gwuyck922RfmSFFzpfcH90hpA')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent"></div>
+<div class="relative z-10 flex flex-col">
+<span class="bg-primary text-on-primary px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider self-start mb-2 shadow">18:00 – 21:00 • The Garden</span>
+<h3 class="font-headline-md text-headline-md text-white font-bold">Golden Hour Spritzeria</h3>
+<p class="font-body-sm text-body-sm text-surface-variant mt-1">
+              Χαλαρές συζητήσεις, τραπεζάκια έξω, aperitivo bites και το αθηναϊκό ηλιοβασίλεμα να λούζει την πλατεία.
+            </p>
+</div>
+</div>
+<!-- Night DJ Card -->
+<div class="relative rounded-2xl overflow-hidden shadow-2xl group min-h-[380px] flex flex-col justify-end p-space-lg transition-transform duration-500 hover:-translate-y-1">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-108" data-alt="Moody electric club atmosphere inside Persona Spritzeria with magenta and neon purple lighting, DJ booth with vinyl turntables, crowd laughing and dancing holding spritz glasses under disco ball glow" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBlp2Hz9Q3gZiAftYPMQD9yHLsKh706t8YAzIFyCocc4XBRjq5Nv0vgJWyIjlD4S2yoRBxhPuTy3kvGKPrdvqgXwcs70WIcQ8ofU766vJ4fucA7_PQd98qS1EaLbwTTWExculEW9OnF6swsbjLV6M5X6Cq4zF3Mjir7aiXtKGBmrR_1O7ZIVrNA6vP9KzQZgFiJpw4Wm3ZomJHKDD5jYmL2KYm72YfX8RtlVTRuu2sgpUQfl_kzcw')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+<div class="relative z-10 flex flex-col">
+<span class="bg-tertiary-container text-on-tertiary-container px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider self-start mb-2 shadow">21:30 – Late • DJ Sets</span>
+<h3 class="font-headline-md text-headline-md text-white font-bold">Electric 90s &amp; 00s Nostalgia</h3>
+<p class="font-body-sm text-body-sm text-surface-variant mt-1">
+              Ανεβασμένες εντάσεις, Disco House, Eurodance bops και τα cocktail shakers να δίνουν τον ρυθμό.
+            </p>
+</div>
+</div>
+</div>
+<!-- Interactive Tracklist Player & DJ Open Call Bento -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-stretch">
+<!-- Interactive Audio Player Mockup with Spinning Vinyl & Animated Equalizer -->
+<div class="lg:col-span-7 bg-surface-container-highest/10 backdrop-blur-md rounded-2xl p-space-lg shadow-xl flex flex-col justify-between border border-white/10 group/player">
+<div>
+<div class="flex items-center justify-between pb-space-sm mb-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-2xl animate-pulse">graphic_eq</span>
+<span class="font-label-sticker text-label-sticker uppercase tracking-widest text-secondary-fixed">PERSONA MIXTAPE VOL. 1</span>
+</div>
+<!-- Animated Equalizer Bars -->
+<div class="flex items-end gap-1 h-5 px-2 bg-black/40 rounded-full py-1">
+<span class="w-1 bg-secondary rounded-full eq-1"></span>
+<span class="w-1 bg-primary rounded-full eq-2"></span>
+<span class="w-1 bg-amber-400 rounded-full eq-3"></span>
+<span class="w-1 bg-secondary rounded-full eq-4"></span>
+</div>
+</div>
+<!-- Now Playing Track with Interactive Play/Pause & Vinyl Spin -->
+<div class="flex items-center gap-space-sm p-space-sm bg-black/50 rounded-xl mb-space-md border border-white/5 cursor-pointer hover:bg-black/70 transition-colors" id="vinyl-player-btn">
+<div class="relative w-12 h-12 shrink-0">
+<!-- Mini Vinyl Record Disc -->
+<div class="w-12 h-12 rounded-full bg-neutral-900 border-2 border-neutral-700 flex items-center justify-center shadow-lg animate-spin-vinyl" id="vinyl-disc">
+<div class="w-4 h-4 rounded-full bg-secondary flex items-center justify-center">
+<div class="w-1 h-1 rounded-full bg-black"></div>
+</div>
+</div>
+<div class="absolute inset-0 flex items-center justify-center text-white opacity-0 hover:opacity-100 transition-opacity bg-black/40 rounded-full">
+<span class="material-symbols-outlined text-lg" id="play-icon">pause</span>
+</div>
+</div>
+<div class="flex flex-col min-w-0 flex-1">
+<span class="text-white font-bold text-sm truncate flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-green-400 animate-ping inline-block"></span>
+  Gala — Freed from Desire (Italo Spritz Edit)
+</span>
+<span class="text-xs text-secondary-fixed-dim">DJ Guest: Persona Resident Crew</span>
+</div>
+<span class="text-xs font-mono text-outline-variant pr-2">02:44 / 04:12</span>
+</div>
+<!-- Mini Tracklist with Interactive Track Selection -->
+<div class="space-y-2 text-xs">
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-white/5 hover:bg-white/15 hover:translate-x-1 cursor-pointer transition-all">
+<span class="text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-xs text-secondary">play_arrow</span>
+  01. Raffaella Carrà • A Far L'amore Comincia Tu
+</span>
+<span class="text-secondary-fixed-dim font-mono">128 BPM</span>
+</div>
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-white/5 hover:bg-white/15 hover:translate-x-1 cursor-pointer transition-all">
+<span class="text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-xs text-secondary">play_arrow</span>
+  02. Sophie Ellis-Bextor • Murder on the Dancefloor
+</span>
+<span class="text-secondary-fixed-dim font-mono">118 BPM</span>
+</div>
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-white/5 hover:bg-white/15 hover:translate-x-1 cursor-pointer transition-all">
+<span class="text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-xs text-secondary">play_arrow</span>
+  03. Modjo • Lady (Hear Me Tonight)
+</span>
+<span class="text-secondary-fixed-dim font-mono">124 BPM</span>
+</div>
+</div>
+</div>
+<div class="pt-space-md flex items-center justify-between text-xs text-surface-variant">
+<span class="">Curated weekly for the Persona Garden &amp; Bar</span>
+<a class="text-secondary-fixed font-bold hover:underline inline-flex items-center gap-1 hover:text-white transition-colors" href="https://instagram.com/persona_ath" target="_blank">
+<span class="">Ακολούθησε στο Spotify</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- DJ Open Call Banner with fox mascot peek -->
+<div class="lg:col-span-5 bg-gradient-to-br from-secondary/35 via-tertiary/25 to-black/70 backdrop-blur-md rounded-2xl p-space-lg shadow-xl flex flex-col justify-between relative overflow-hidden border border-white/10 group">
+<div class="absolute -right-6 -bottom-6 w-36 h-36 opacity-20 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6"><img alt="Persona fox mascot" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1U2upxTwKTxvgoPY9y9dmBuepOlBsBo945iefpsvJml1618EPEkG8yk3rnh98YTzEWqaIDxXBAXKVMUtxxIYKwP87JaG9mhxZDIIc3IPvEQo2SQH1H502lTfLMLJDDtVgj5Ao7r6-k6arctrcDiaWao7wX5PnyGnOeX8yJm8hrE_8DG-fu_JQv1KqvE_vGmSSG-JBCec-NFLdH-3Rm_1mGl0juYRON6xrk9kSm0CoV0kQK_Fvd-JVVw"/></div>
+<div class="relative z-10">
+<span class="bg-secondary text-white font-label-sticker text-[11px] tracking-wider uppercase px-2.5 py-1 rounded-full inline-block mb-3 shadow">
+              OPEN CALL 🎧
+            </span>
+<h3 class="font-headline-md text-headline-md text-white font-bold leading-tight">
+              DJ Open Call — Spin with us!
+            </h3>
+<p class="font-body-sm text-body-sm text-surface-variant mt-2 leading-relaxed">
+              Είσαι DJ και αγαπάς τα 80s, 90s, 00s, Disco &amp; Funky House; Στείλε μας το mixtape σου στο Instagram DM και έλα να παίξεις στο booth της Περσόνας.
+            </p>
+</div>
+<div class="relative z-10 mt-space-md pt-space-xs">
+<a class="inline-flex items-center gap-2 px-space-md py-2.5 rounded-full bg-secondary text-white font-label-lg text-label-lg uppercase tracking-wider hover:bg-secondary-container transition-all shadow-[0_0_16px_rgba(232,36,108,0.4)] hover:shadow-[0_0_24px_rgba(232,36,108,0.7)] hover:scale-105 active:scale-95" href="https://instagram.com/persona_ath" rel="noopener noreferrer" target="_blank">
+<span class="">Στείλε μας DM @persona_ath</span>
+<span class="material-symbols-outlined text-sm">send</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 5: STORIES & REELS GALLERY (@persona_ath / @persona.ath) with Live Record Pulsing Dot & Carousel Motion -->
+<section class="w-full py-space-3xl bg-surface" id="gallery-section">
+<div class="max-w-[1320px] mx-auto px-margin-mobile lg:px-margin-desktop">
+<!-- Section Header with Social Proof Counter Badges -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-space-xl gap-space-md reveal-on-scroll">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-surface-container px-3 py-0.5 rounded-full font-label-sticker text-label-sticker uppercase text-primary tracking-widest">
+              LIVE FROM ILIOUPOLI
+            </span>
+<div class="flex items-center gap-1.5 px-2.5 py-0.5 bg-red-50 text-red-600 rounded-full text-[11px] font-bold uppercase tracking-wider">
+<span class="w-2 h-2 rounded-full bg-red-600 animate-ping"></span>
+<span>LIVE FEED</span>
+</div>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-bold">
+            Follow the persona-ing 🦊
+          </h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Καθημερινά στιγμιότυπα, φλόγες στο pizzaiolo και spritz toasts.
+          </p>
+</div>
+<div class="flex items-center gap-space-sm self-start md:self-auto">
+<div class="flex flex-col bg-surface-container-low px-4 py-2 rounded-xl shadow-xs border border-primary/10 transition-transform duration-300 hover:scale-105">
+<span class="font-headline-sm text-headline-sm text-primary font-bold leading-none">5.1K+</span>
+<span class="text-[11px] text-on-surface-variant font-medium uppercase tracking-wider">Instagram Followers</span>
+</div>
+<div class="flex flex-col bg-surface-container-low px-4 py-2 rounded-xl shadow-xs border border-secondary/10 transition-transform duration-300 hover:scale-105">
+<span class="font-headline-sm text-headline-sm text-secondary font-bold leading-none">23.6K+</span>
+<span class="text-[11px] text-on-surface-variant font-medium uppercase tracking-wider">TikTok Likes</span>
+</div>
+</div>
+</div>
+<!-- Swipeable Reels Row with Hover Preview Zoom -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-space-md">
+<!-- Reel 1: Pizzaiolo Fire -->
+<a class="group relative rounded-2xl overflow-hidden aspect-[9/16] shadow-md hover:shadow-2xl bg-surface-container flex flex-col justify-end p-3.5 transition-all duration-500 hover:-translate-y-2 hover:scale-[1.02]" href="https://tiktok.com/@persona.ath" rel="noopener noreferrer" target="_blank">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Vertical close up shot of chef hands stretching pizza dough in front of roaring open wood-fired oven flames with burning orange embers at Persona Spritzeria" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDR6gwRByaBrbGHYvukQBTkIYHZYI6S-6GD3qbJl2TnvdX1jEFr9tZ-r_XG5Kym-XPzxjaKlZLNpwRnwFaDkt5KHzryqIHcZy12xr_9xueuv0RRjAb-2XU4BLBVpeX26CPQdJHe9JSkGbiOsbFI0zCkLJvadB0a-OEyZHCHr7Qg4DVR_zktTltog8_zyiSD1a-A_q1eBm6CEm0JZ5r81B4b6kJ-DulAyfjQRWYhYehwhGBt6taLgQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
+<div class="relative z-10 text-white">
+<div class="flex items-center gap-1 text-[11px] font-bold uppercase text-primary-fixed mb-0.5">
+<span class="material-symbols-outlined text-sm">local_fire_department</span>
+<span class="">Pizzaiolo Fire</span>
+</div>
+<p class="text-xs font-medium line-clamp-2">48ωρη ζύμη που ψήνεται σε 90 δευτερόλεπτα 🔥</p>
+<span class="text-[10px] text-surface-variant mt-1 block">14.2K views on TikTok</span>
+</div>
+</a>
+<!-- Reel 2: Spritz Cheers -->
+<a class="group relative rounded-2xl overflow-hidden aspect-[9/16] shadow-md hover:shadow-2xl bg-surface-container flex flex-col justify-end p-3.5 transition-all duration-500 hover:-translate-y-2 hover:scale-[1.02]" href="https://instagram.com/persona_ath" rel="noopener noreferrer" target="_blank">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Three smiling young women friends holding orange Aperol and Limoncello spritzes clinking glasses together in toast during golden hour sunlight outdoors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxYhtl-pk0O3jJbC5e3g7BRoadM5Tgod06Xr7UkJ95n4YzVbyzNZAB5UX1lfTKC4pvoldFN6OizZtyYNO4IrmSApPtZQQqGyL59QWlT76WkM0KQXnRRiqqD_RLB_zNEZtM4A_IKk8EZ7MOFiScrpTiueoK2G5MMwyzD1Gk-ZrrliuuP_nNI84BKbG3zIcmfV3iwt-53FQWZ1UsCCEjofPlHL_lwcasnp0Nofkf_KPYE2whCi1V8g"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
+<div class="relative z-10 text-white">
+<div class="flex items-center gap-1 text-[11px] font-bold uppercase text-primary-fixed mb-0.5">
+<span class="material-symbols-outlined text-sm">celebration</span>
+<span class="">Girls Toast</span>
+</div>
+<p class="text-xs font-medium line-clamp-2">«Girls just wanna have Spritz» moments 🥂</p>
+<span class="text-[10px] text-surface-variant mt-1 block">@persona_ath story</span>
+</div>
+</a>
+<!-- Reel 3: Golden Sunset Rooftop -->
+<a class="group relative rounded-2xl overflow-hidden aspect-[9/16] shadow-md hover:shadow-2xl bg-surface-container flex flex-col justify-end p-3.5 transition-all duration-500 hover:-translate-y-2 hover:scale-[1.02]" href="https://instagram.com/persona_ath" rel="noopener noreferrer" target="_blank">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Warm aesthetic sunset over Ilioupoli square seen through lemon tree leaves with Persona Spritzeria striped parasols and aperitivo glasses" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzA6-V7Vys3usy8qLGBJ5aSV1ORpVB_OLwfSejSZgdjVUymD_TQc0LB6MoP0iyH-8hvd9_xoc5x6N62J7rDw05t_mWB4E4tUQ6qN_N-4_XM6kv5f-l2WgRlMtOb58fUKWs8OozGA1_PIGhGPDV5NvcFY865Sby1Vv7qSXiswjTtMFrFNy7hYuS1_43BZcnu0-SAEQHgxBq6Pl_aYI2zEJeW3qe00wUF3hiKDaI_QydRGV_Ilib1g"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
+<div class="relative z-10 text-white">
+<div class="flex items-center gap-1 text-[11px] font-bold uppercase text-primary-fixed mb-0.5">
+<span class="material-symbols-outlined text-sm">wb_twilight</span>
+<span class="">Sun City Sunset</span>
+</div>
+<p class="text-xs font-medium line-clamp-2">Η ώρα που η Ηλιούπολη παίρνει χρώμα πορτοκαλί ☀️</p>
+<span class="text-[10px] text-surface-variant mt-1 block">Reel Highlight</span>
+</div>
+</a>
+<!-- Reel 4: DJ Booth Dancefloor -->
+<a class="group relative rounded-2xl overflow-hidden aspect-[9/16] shadow-md hover:shadow-2xl bg-surface-container flex flex-col justify-end p-3.5 transition-all duration-500 hover:-translate-y-2 hover:scale-[1.02]" href="https://tiktok.com/@persona.ath" rel="noopener noreferrer" target="_blank">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Lively night dancing at Persona Spritzeria illuminated in magenta and neon violet lights with guest DJ holding vinyl record and dancing crowd" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPw7YEtaLCc3RJKgiMIUsy51VD0PTcm9nmMJbI75oJXFEWLKAK5xWEfSZx0z7OyCey4nTEUyicKe_3srmL7QOfNVzbNl_Azb9ZFZ3VpQMm1b26TnJbFcza5soY9m5K8wPN18tkbygCBNe5nbVxIHJoMIga5bYvs9EbP7QV7WlyzrOGn-_VqpRki1ZIAT538ULrdiQWJsKkIoBIZdfkpLbyv0qgt0JEPSbUXg251ovG8ypidZbgCg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
+<div class="relative z-10 text-white">
+<div class="flex items-center gap-1 text-[11px] font-bold uppercase text-secondary-fixed mb-0.5">
+<span class="material-symbols-outlined text-sm">album</span>
+<span class="">00s DJ Night</span>
+</div>
+<p class="text-xs font-medium line-clamp-2">Όταν μπαίνει το αγαπημένο σου 00s hit στις 23:30 🪩</p>
+<span class="text-[10px] text-surface-variant mt-1 block">8.9K likes</span>
+</div>
+</a>
+</div>
+<!-- Follow Button Banner with springy button animation -->
+<div class="mt-space-xl flex flex-col sm:flex-row items-center justify-center gap-space-md reveal-on-scroll">
+<a class="inline-flex items-center gap-2 px-space-xl py-3 rounded-full bg-gradient-to-r from-primary to-secondary text-white font-label-lg text-label-lg uppercase tracking-wider shadow-md hover:shadow-xl hover:-translate-y-1 hover:scale-105 active:scale-95 transition-all duration-200" href="https://instagram.com/persona_ath" rel="noopener noreferrer" target="_blank">
+<img alt="Fox mascot" class="w-5 h-5 object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1U2upxTwKTxvgoPY9y9dmBuepOlBsBo945iefpsvJml1618EPEkG8yk3rnh98YTzEWqaIDxXBAXKVMUtxxIYKwP87JaG9mhxZDIIc3IPvEQo2SQH1H502lTfLMLJDDtVgj5Ao7r6-k6arctrcDiaWao7wX5PnyGnOeX8yJm8hrE_8DG-fu_JQv1KqvE_vGmSSG-JBCec-NFLdH-3Rm_1mGl0juYRON6xrk9kSm0CoV0kQK_Fvd-JVVw"/>
+<span class="">Follow @persona_ath στο Instagram</span>
+</a>
+<a class="inline-flex items-center gap-2 px-space-lg py-3 rounded-full bg-surface-container text-on-surface font-label-lg text-label-lg uppercase tracking-wider hover:bg-surface-container-high transition-all shadow-xs hover:scale-105 active:scale-95" href="https://tiktok.com/@persona.ath" rel="noopener noreferrer" target="_blank">
+<span class="">TikTok @persona.ath</span>
+<span class="material-symbols-outlined text-sm">open_in_new</span>
+</a>
+</div>
+</div>
+</section>
+<!-- SECTION 6: LOCATION & HOURS / ΠΟΥ ΘΑ ΜΑΣ ΒΡΕΙΤΕ -->
+<section class="w-full py-space-3xl bg-surface-container-low" id="location-section">
+<div class="max-w-[1320px] mx-auto px-margin-mobile lg:px-margin-desktop">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-stretch">
+<!-- Address & Practical Schedule Cards -->
+<div class="lg:col-span-6 flex flex-col justify-between gap-space-lg reveal-on-scroll">
+<div>
+<div class="inline-flex items-center gap-2 mb-2">
+<span class="bg-primary text-on-primary font-label-sticker text-label-sticker uppercase tracking-widest px-3 py-1 rounded-full -rotate-1 hover:rotate-0 transition-transform">
+                SUN CITY VIBES ☀️
+              </span>
+<span class="text-xs uppercase tracking-wider text-outline font-semibold">ΠΟΥ ΘΑ ΜΑΣ ΒΡΕΙΤΕ</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-bold leading-tight">
+              Στην καρδιά της Ηλιούπολης.
+            </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+              Vitsi 42, Ilioupoli, Athens (Πλησίον Κεντρικής Πλατείας).
+            </p>
+</div>
+<!-- Schedule Box -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm border border-primary/5 transition-all duration-300 hover:shadow-md">
+<div class="flex items-center gap-2 pb-space-sm mb-space-sm border-b border-surface-container">
+<span class="material-symbols-outlined text-primary">schedule</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">Ώρες Λειτουργίας • Opening Hours</span>
+</div>
+<div class="space-y-2 text-sm">
+<div class="flex items-center justify-between py-1">
+<span class="text-on-surface font-medium">Τρίτη – Παρασκευή (Tue – Fri)</span>
+<span class="font-bold text-primary">18:00 – 02:30</span>
+</div>
+<div class="flex items-center justify-between py-1">
+<span class="text-on-surface font-medium">Σάββατο – Κυριακή (Sat – Sun)</span>
+<span class="font-bold text-primary">17:30 – 03:00</span>
+</div>
+<div class="flex items-center justify-between py-1 bg-surface-container-low px-2.5 rounded-lg">
+<span class="text-secondary font-bold text-xs uppercase tracking-wider flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
+  Aperitivo Hour (Daily)
+</span>
+<span class="text-secondary font-bold text-xs">18:30 – 20:30 (Free Bites!)</span>
+</div>
+<div class="flex items-center justify-between py-1 text-outline text-xs">
+<span class="">Δευτέρα (Monday)</span>
+<span class="">Κλειστά για vinyl hunting &amp; pasta prep</span>
+</div>
+</div>
+</div>
+<!-- Transit Card -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm flex items-start gap-space-sm border border-primary/5 transition-all duration-300 hover:shadow-md">
+<div class="w-10 h-10 rounded-full bg-primary-fixed text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">directions_subway</span>
+</div>
+<div>
+<span class="font-title-lg text-title-lg text-on-surface font-semibold block">Πρόσβαση με Μετρό / Transit</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                Μετρό Γραμμή 2 (Κόκκινη) – Στάση <strong>Ηλιούπολη</strong>. Μόλις 6 λεπτά ευχάριστο περπάτημα ή 2 λεπτά με το λεωφορείο 201/206.
+              </p>
+</div>
+</div>
+</div>
+<!-- Static / Interactive Map Card with data-location -->
+<div class="lg:col-span-6 flex flex-col reveal-on-scroll">
+<div class="relative w-full h-full min-h-[360px] rounded-2xl overflow-hidden shadow-xl flex flex-col justify-end p-space-lg group">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-location="Vitsi 42, Ilioupoli, Athens, Greece" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA4wcP3dMsxlrYfLqGHug6a7Fph7vtRpe70fRqOAGvTzv8KKg4v0VlDgzfIWlWvj19iNPRJbC4btmBRWwQp_S2PMdHUC_A5TudLf1nvbNHHK_4Ni-qYL2TxOG2PRoR3Dsf6ovn6KG71kXgFgl9P-pRFS9grT09mL77XKeS8pZabyAUPAYEEV1xXBOg1uk5w5lKB2cwl97JJGW3pjUi24LD0KL3vMPUMYL2uMirep50N9NWAuc_u9g')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/90 via-on-surface/35 to-transparent"></div>
+<div class="relative z-10 flex flex-col text-white">
+<div class="inline-flex items-center gap-2 bg-primary text-on-primary px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider self-start mb-2 shadow">
+<span class="material-symbols-outlined text-[16px]">pin_drop</span>
+<span class="">Βίτσι 42, Ηλιούπολη 16341</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-white">Persona Spritzeria Bar</h3>
+<p class="font-body-sm text-body-sm text-surface-variant mt-1">
+                Δίπλα στα πλατάνια, με άνετο parking στους γύρω δρόμους.
+              </p>
+<div class="mt-space-md flex gap-2">
+<a class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-on-surface text-xs font-bold uppercase tracking-wider hover:bg-surface-container hover:scale-105 active:scale-95 transition-all shadow" href="https://maps.google.com" rel="noopener noreferrer" target="_blank">
+<span class="">Google Maps</span>
+<span class="material-symbols-outlined text-[14px]">open_in_new</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 7: RESERVATION & FOOTER DRAWER -->
+<section class="w-full py-space-3xl bg-surface relative overflow-hidden" id="booking-section">
+<div class="max-w-[1000px] mx-auto px-margin-mobile lg:px-margin-desktop relative z-10">
+<div class="bg-surface-container-lowest rounded-3xl p-space-xl lg:p-space-2xl shadow-2xl flex flex-col items-center text-center relative border border-primary/10 reveal-on-scroll">
+<!-- Peeking Mascot Header with bouncy wobble -->
+<div class="w-20 h-20 rounded-full bg-primary-fixed p-1 shadow-lg -mt-14 mb-space-md relative group cursor-pointer hover:scale-110 active:scale-95 transition-all duration-300">
+<img alt="Persona fox mascot" class="w-full h-full object-contain rounded-full bg-[#E85C1F] p-2 group-hover:rotate-12 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida/AEtjO1U2upxTwKTxvgoPY9y9dmBuepOlBsBo945iefpsvJml1618EPEkG8yk3rnh98YTzEWqaIDxXBAXKVMUtxxIYKwP87JaG9mhxZDIIc3IPvEQo2SQH1H502lTfLMLJDDtVgj5Ao7r6-k6arctrcDiaWao7wX5PnyGnOeX8yJm8hrE_8DG-fu_JQv1KqvE_vGmSSG-JBCec-NFLdH-3Rm_1mGl0juYRON6xrk9kSm0CoV0kQK_Fvd-JVVw"/>
+<span class="absolute -top-1 -right-1 bg-secondary text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold shadow-xs animate-bounce" style="animation-duration: 2s;">Spritz! 🦊</span>
+</div>
+<span class="font-label-sticker text-label-sticker uppercase tracking-widest text-primary font-bold mb-1">
+          RESERVATIONS • ΚΡΑΤΗΣΕΙΣ
+        </span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-bold leading-tight">
+          Κλείσε το τραπέζι σου στην Περσόνα
+        </h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-lg mt-2">
+          Για παρέες, γενέθλια, aperitivo dates ή απλά για spritz μετά τη δουλειά. Συμπλήρωσε τα στοιχεία σου και θα επιβεβαιώσουμε άμεσα μέσω SMS/WhatsApp!
+        </p>
+<!-- Fast Booking Form Mockup -->
+<form class="w-full max-w-xl mt-space-xl grid grid-cols-1 sm:grid-cols-2 gap-space-sm text-left" id="reservation-form" onsubmit="event.preventDefault(); alert('Ευχαριστούμε! Η κράτησή σου καταχωρήθηκε στην Περσόνα! 🦊✨');">
+<div class="flex flex-col gap-1">
+<label class="text-xs font-semibold text-on-surface uppercase tracking-wider">Ονοματεπώνυμο / Name</label>
+<input class="px-space-sm py-2.5 rounded-xl bg-surface-container-low text-on-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary transition-shadow" placeholder="π.χ. Ελένη Παπαδοπούλου" required="" type="text"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-xs font-semibold text-on-surface uppercase tracking-wider">Τηλέφωνο / Phone</label>
+<input class="px-space-sm py-2.5 rounded-xl bg-surface-container-low text-on-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary transition-shadow" placeholder="69XXXXXXXX" required="" type="tel"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-xs font-semibold text-on-surface uppercase tracking-wider">Ημερομηνία / Date</label>
+<input class="px-space-sm py-2.5 rounded-xl bg-surface-container-low text-on-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary transition-shadow" required="" type="date"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-xs font-semibold text-on-surface uppercase tracking-wider">Άτομα / Guests</label>
+<select class="px-space-sm py-2.5 rounded-xl bg-surface-container-low text-on-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary transition-shadow">
+<option>2 άτομα (Spritz Date)</option>
+<option>3–4 άτομα (Small Crew)</option>
+<option>5–8 άτομα (Birthday / Aperitivo)</option>
+<option>9+ άτομα (Big Party!)</option>
+</select>
+</div>
+<div class="sm:col-span-2 flex flex-col gap-1">
+<label class="text-xs font-semibold text-on-surface uppercase tracking-wider">Σημειώσεις / Notes (Optional)</label>
+<input class="px-space-sm py-2.5 rounded-xl bg-surface-container-low text-on-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary transition-shadow" placeholder="π.χ. Προτίμηση κήπου, DJ night τραπέζι κτλ." type="text"/>
+</div>
+<div class="sm:col-span-2 mt-space-sm">
+<button class="w-full py-3.5 rounded-full bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg uppercase tracking-wider shadow-lg hover:shadow-2xl hover:-translate-y-0.5 active:scale-95 transition-all duration-200 flex items-center justify-center gap-2 group/btn" type="submit">
+<img alt="Fox mascot" class="w-5 h-5 object-contain transition-transform duration-300 group-hover/btn:rotate-12" src="https://lh3.googleusercontent.com/aida/AEtjO1U2upxTwKTxvgoPY9y9dmBuepOlBsBo945iefpsvJml1618EPEkG8yk3rnh98YTzEWqaIDxXBAXKVMUtxxIYKwP87JaG9mhxZDIIc3IPvEQo2SQH1H502lTfLMLJDDtVgj5Ao7r6-k6arctrcDiaWao7wX5PnyGnOeX8yJm8hrE_8DG-fu_JQv1KqvE_vGmSSG-JBCec-NFLdH-3Rm_1mGl0juYRON6xrk9kSm0CoV0kQK_Fvd-JVVw"/>
+<span class="">Ολοκλήρωση Κράτησης / Confirm Table</span>
+</button>
+</div>
+</form>
+<!-- Quick Contacts Sub-row -->
+<div class="mt-space-lg flex flex-wrap items-center justify-center gap-space-md text-xs text-outline font-medium">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">call</span>
+<span class="">+30 210 99XXXXX</span>
+</span>
+<span class="">•</span>
+<a class="hover:text-primary transition-colors flex items-center gap-1 hover:scale-105" href="https://instagram.com/persona_ath" target="_blank">
+<span class="material-symbols-outlined text-sm">photo_camera</span>
+<span class="">@persona_ath</span>
+</a>
+<span class="">•</span>
+<a class="hover:text-secondary transition-colors flex items-center gap-1 hover:scale-105" href="https://tiktok.com/@persona.ath" target="_blank">
+<span class="material-symbols-outlined text-sm">videocam</span>
+<span class="">@persona.ath</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+</div></main><footer class="w-full bg-surface-container-low shadow-[0_1px_8px_rgba(0,0,0,0.02)] mt-space-3xl"><div class="max-w-[1320px] mx-auto px-margin-mobile lg:px-margin-desktop py-space-3xl"><div class="grid grid-cols-1 md:grid-cols-12 gap-space-xl items-start"><div class="md:col-span-5 flex flex-col gap-space-sm"><div class="flex items-baseline gap-2 group cursor-default"><img alt="Persona Spritzeria Mascot" class="w-7 h-7 object-contain rounded-full bg-[#E85C1F] p-1 inline-block mr-1 group-hover:rotate-12 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida/AEtjO1U2upxTwKTxvgoPY9y9dmBuepOlBsBo945iefpsvJml1618EPEkG8yk3rnh98YTzEWqaIDxXBAXKVMUtxxIYKwP87JaG9mhxZDIIc3IPvEQo2SQH1H502lTfLMLJDDtVgj5Ao7r6-k6arctrcDiaWao7wX5PnyGnOeX8yJm8hrE_8DG-fu_JQv1KqvE_vGmSSG-JBCec-NFLdH-3Rm_1mGl0juYRON6xrk9kSm0CoV0kQK_Fvd-JVVw"/><span class="font-headline-md text-headline-md text-on-surface font-bold">ΠΕΡΣΟΝΑ</span><span class="font-label-sticker text-label-sticker text-primary uppercase font-bold">Aperitivo Club</span></div><p class="font-body-md text-body-md text-on-surface-variant max-w-md">Sun-drenched Mediterranean aperitivo culture transitioning into late-night eclectic DJ grooves. Handcrafted spritzes, natural bubbles, and Athenian warmth in the heart of Ilioupoli.</p><div class="flex items-center gap-space-md pt-space-xs"><a class="inline-flex items-center gap-1.5 font-label-lg text-label-lg text-primary hover:underline hover:scale-105 active:scale-95 transition-all" href="https://instagram.com/persona_ath" rel="noopener noreferrer" target="_blank"><span class="material-symbols-outlined text-[18px]">photo_camera</span><span class="">@persona_ath</span></a><a class="inline-flex items-center gap-1.5 font-label-lg text-label-lg text-secondary hover:underline hover:scale-105 active:scale-95 transition-all" href="https://tiktok.com/@persona.ath" rel="noopener noreferrer" target="_blank"><span class="material-symbols-outlined text-[18px]">videocam</span><span class="">@persona.ath</span></a></div></div><div class="md:col-span-4 flex flex-col gap-space-xs"><span class="font-label-lg text-label-lg uppercase tracking-widest text-outline font-semibold">Ώρες • Hours</span><p class="font-body-md text-body-md text-on-surface">Τρίτη – Κυριακή: 18:00 – 02:30</p><p class="font-body-sm text-body-sm text-on-surface-variant">Aperitivo Hour: 18:00 – 20:30 καθημερινά</p><p class="font-body-sm text-body-sm text-on-surface-variant">Δευτέρα: Κλειστά / Closed for vinyl hunting</p></div><div class="md:col-span-3 flex flex-col gap-space-xs"><span class="font-label-lg text-label-lg uppercase tracking-widest text-outline font-semibold">Τοποθεσία • Find Us</span><p class="font-body-md text-body-md text-on-surface">Πλατεία Ηλιούπολης, Αθήνα</p><p class="font-body-sm text-body-sm text-on-surface-variant">Ilioupoli Central Square, Athens, Greece</p><a class="font-label-lg text-label-lg text-primary hover:text-primary-container font-semibold mt-space-2xs inline-flex items-center gap-1 hover:translate-x-1 transition-transform" data-path="location" href="#location-section">Οδηγίες Χάρτη <span class="material-symbols-outlined text-[16px]">arrow_forward</span></a></div></div><div class="mt-space-2xl pt-space-lg flex flex-col sm:flex-row items-center justify-between gap-space-md font-body-sm text-body-sm text-outline border-t border-surface-container"><p class="">© 2024 ΠΕΡΣΟΝΑ SPRITZERIA. All rights reserved. Ilioupoli, GR.</p><div class="flex items-center gap-space-md"><span class="font-label-sticker text-label-sticker uppercase tracking-widest text-primary">Sun • Spritz • Vinyl</span></div></div></div></footer>
+<!-- Interactive Motion & Micro-interactions Script -->
+<script>
+  (function() {
+    // 1. Scroll-triggered Staggered Reveals
+    const reveals = document.querySelectorAll('.reveal-on-scroll');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      reveals.forEach((el, index) => {
+        el.style.transitionDelay = `${(index % 4) * 0.1}s`;
+        observer.observe(el);
+      });
+    } else {
+      reveals.forEach(el => el.classList.add('is-revealed'));
+    }
+
+    // 2. Unboxing Peel / Reveal Micro-interaction
+    const unbox = document.getElementById('unboxing-box');
+    const tape = document.getElementById('tape-banner');
+    const badge = document.getElementById('unboxing-badge');
+    let isUnboxed = false;
+
+    if (unbox) {
+      unbox.addEventListener('click', function() {
+        isUnboxed = !isUnboxed;
+        unbox.setAttribute('aria-expanded', isUnboxed);
+        if (isUnboxed) {
+          unbox.classList.add('ring-4', 'ring-primary', 'bg-surface-container-lowest');
+          if (tape) {
+            tape.style.transform = 'translateY(-16px) rotate(-14deg) scale(1.08)';
+            tape.classList.add('bg-secondary', 'text-white');
+          }
+          if (badge) {
+            badge.textContent = 'Unboxed! 🦊✨';
+            badge.classList.replace('bg-primary', 'bg-secondary');
+          }
+        } else {
+          unbox.classList.remove('ring-4', 'ring-primary', 'bg-surface-container-lowest');
+          if (tape) {
+            tape.style.transform = '';
+            tape.classList.remove('bg-secondary', 'text-white');
+          }
+          if (badge) {
+            badge.textContent = 'Click to Open';
+            badge.classList.replace('bg-secondary', 'bg-primary');
+          }
+        }
+      });
+    }
+
+    // 3. Menu Category Filter Pills
+    const filterBtns = document.querySelectorAll('.menu-filter-btn');
+    const menuCards = document.querySelectorAll('.menu-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+        filterBtns.forEach(b => {
+          b.classList.remove('bg-primary', 'text-on-primary', 'font-bold');
+          b.classList.add('text-on-surface-variant', 'font-medium');
+        });
+        btn.classList.add('bg-primary', 'text-on-primary', 'font-bold');
+        btn.classList.remove('text-on-surface-variant', 'font-medium');
+
+        menuCards.forEach(card => {
+          const category = card.getAttribute('data-category');
+          if (filter === 'all' || category === filter) {
+            card.style.display = 'flex';
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.96)';
+            setTimeout(() => {
+              card.style.transition = 'all 0.35s ease-out';
+              card.style.opacity = '1';
+              card.style.transform = 'scale(1)';
+            }, 20);
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // 4. Interactive Vinyl Disc Spin & Play Toggle
+    const vinylBtn = document.getElementById('vinyl-player-btn');
+    const vinylDisc = document.getElementById('vinyl-disc');
+    const playIcon = document.getElementById('play-icon');
+    let isPlaying = true;
+
+    if (vinylBtn && vinylDisc && playIcon) {
+      vinylBtn.addEventListener('click', () => {
+        isPlaying = !isPlaying;
+        if (isPlaying) {
+          vinylDisc.style.animationPlayState = 'running';
+          playIcon.textContent = 'pause';
+        } else {
+          vinylDisc.style.animationPlayState = 'paused';
+          playIcon.textContent = 'play_arrow';
+        }
+      });
+    }
+  })();
+</script>
+</body></html>

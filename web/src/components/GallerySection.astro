@@ -1,0 +1,94 @@
+---
+import {FOX_MASCOT, galleryItems, siteDefaults} from '../lib/fallbacks'
+
+const rotations = ['-rotate-1', 'rotate-1', '-rotate-2', 'rotate-2']
+---
+
+<section class="w-full py-space-3xl bg-surface" id="gallery-section">
+  <div class="site-wrap">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-space-xl gap-space-md reveal-on-scroll">
+      <div>
+        <div class="flex items-center gap-2 mb-2">
+          <span class="bg-surface-container px-3 py-0.5 rounded-full font-label-sticker text-label-sticker uppercase text-primary tracking-widest">
+            LIVE FROM ILIOUPOLI
+          </span>
+          <div class="flex items-center gap-1.5 px-2.5 py-0.5 bg-red-50 text-red-600 rounded-full text-[11px] font-bold uppercase tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-red-600 animate-ping"></span>
+            <span>LIVE FEED</span>
+          </div>
+        </div>
+        <h2 class="font-display text-headline-lg-mobile lg:text-headline-lg text-on-surface font-bold">
+          Follow the persona-ing
+        </h2>
+        <p class="font-body-md text-body-md text-on-surface-variant">
+          Καθημερινά στιγμιότυπα, φλόγες στο pizzaiolo και spritz toasts.
+        </p>
+      </div>
+      <div class="flex items-center gap-space-sm self-start md:self-auto">
+        <div class="flex flex-col bg-surface-container-low px-4 py-2 rounded-lg shadow-elevation-1">
+          <span class="font-headline-sm text-headline-sm text-primary font-bold leading-none">5.1K+</span>
+          <span class="text-[11px] text-on-surface-variant font-medium uppercase tracking-wider">Instagram Followers</span>
+        </div>
+        <div class="flex flex-col bg-surface-container-low px-4 py-2 rounded-lg shadow-elevation-1">
+          <span class="font-headline-sm text-headline-sm text-secondary font-bold leading-none">23.6K+</span>
+          <span class="text-[11px] text-on-surface-variant font-medium uppercase tracking-wider">TikTok Likes</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-space-md">
+      {
+        galleryItems.map((item, i) => (
+          <a
+            class:list={[
+              'group relative rounded-lg overflow-hidden aspect-[9/16] shadow-elevation-1 hover:shadow-floating bg-surface-container flex flex-col justify-end p-3.5 transition-all duration-500 hover:-translate-y-2',
+              rotations[i],
+            ]}
+            href={item.href}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              src={item.image}
+              alt={item.title}
+              class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              loading="lazy"
+              width="300"
+              height="533"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
+            <div class="relative z-10 text-white">
+              <div class="flex items-center gap-1 text-[11px] font-bold uppercase text-primary-fixed mb-0.5">
+                <span class="material-symbols-outlined text-sm">{item.icon}</span>
+                <span>{item.title}</span>
+              </div>
+              <p class="text-xs font-medium line-clamp-2">{item.caption}</p>
+              <span class="text-[10px] text-surface-variant mt-1 block">{item.meta}</span>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="mt-space-xl flex flex-col sm:flex-row items-center justify-center gap-space-md reveal-on-scroll">
+      <a
+        class="inline-flex items-center gap-2 px-space-xl py-3 rounded-full bg-gradient-aperitivo-dusk text-white font-label-lg text-label-lg uppercase tracking-wider shadow-md hover:shadow-xl hover:-translate-y-1 hover:scale-105 active:scale-95 transition-all duration-200"
+        href={siteDefaults.instagram}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <img src={FOX_MASCOT} alt="" class="w-5 h-5 object-contain" width="20" height="20" />
+        <span>Follow {siteDefaults.instagramHandle} στο Instagram</span>
+      </a>
+      <a
+        class="inline-flex items-center gap-2 px-space-lg py-3 rounded-full bg-surface-container text-on-surface font-label-lg text-label-lg uppercase tracking-wider hover:bg-surface-container-high transition-all shadow-elevation-1 hover:scale-105 active:scale-95"
+        href={siteDefaults.tiktok}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <span>TikTok {siteDefaults.tiktokHandle}</span>
+        <span class="material-symbols-outlined text-sm">open_in_new</span>
+      </a>
+    </div>
+  </div>
+</section>

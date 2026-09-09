@@ -1,0 +1,24 @@
+{
+  "siteName": "Persona Spritzeria",
+  "siteUrl": "https://www.personaspritzeria.gr",
+  "contactEmail": "hello@personaspritzeria.gr",
+  "notificationEmailFrom": "notifications@personaspritzeria.gr",
+  "agencyName": "sidebysideweb.gr",
+  "agencyUrl": "https://sidebysideweb.gr",
+  "sanity": {
+    "projectId": "REPLACE_ME",
+    "dataset": "production",
+    "studioHost": "persona-spritzeria",
+    "studioUrl": "https://persona-spritzeria.sanity.studio"
+  },
+  "defaultLocale": "el",
+  "routes": {
+    "menu": "/#menu-highlights",
+    "dj": "/#dj-section",
+    "gallery": "/#gallery-section",
+    "location": "/#location-section",
+    "reserve": "/#booking-section",
+    "privacy": "/privacy/",
+    "cookies": "/cookies/"
+  }
+}

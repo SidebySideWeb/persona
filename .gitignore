@@ -1,0 +1,17 @@
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+.vercel/
+**/.vercel/
+.astro/
+**/.astro/
+.sanity/
+**/.sanity/
+.env
+**/.env
+*.log
+.DS_Store
+.DS_Store?
+web/.env
+studio/.env

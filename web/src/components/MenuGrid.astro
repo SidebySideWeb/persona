@@ -1,0 +1,114 @@
+---
+import {menuItems} from '../lib/fallbacks'
+---
+
+<section class="w-full py-space-3xl bg-surface-container-low relative" id="menu-highlights">
+  <div class="site-wrap">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-space-xl gap-space-md reveal-on-scroll">
+      <div class="flex flex-col gap-2">
+        <div class="inline-flex items-center gap-2">
+          <span class="bg-primary text-on-primary font-label-sticker text-label-sticker tracking-widest px-3 py-1 rounded-full uppercase -rotate-1">
+            SAMPLE MENU / ΠΡΟΤΑΣΕΙΣ
+          </span>
+          <span class="text-xs uppercase tracking-wider text-outline font-semibold">APERITIVO &amp; BITES</span>
+        </div>
+        <h2 class="font-display text-headline-lg-mobile lg:text-headline-lg text-on-surface font-bold">
+          Spritzology &amp; Wood-Fired Treats
+        </h2>
+        <p class="font-body-md text-body-md text-on-surface-variant max-w-xl">
+          Αφρώδεις φυσαλίδες, φρέσκα εσπεριδοειδή και καυτή ζύμη focaccia με 48ωρη ωρίμανση.
+        </p>
+      </div>
+      <div class="flex items-center gap-1.5 bg-surface p-1 rounded-full shadow-elevation-1" role="tablist" aria-label="Menu filters">
+        <button class="menu-filter-btn px-3.5 py-1 text-xs font-bold rounded-full bg-primary text-on-primary transition-all" data-filter="all" type="button">
+          Όλα / All
+        </button>
+        <button class="menu-filter-btn px-3.5 py-1 text-xs font-medium rounded-full text-on-surface-variant hover:text-primary transition-all" data-filter="spritz" type="button">
+          Spritzes
+        </button>
+        <button class="menu-filter-btn px-3.5 py-1 text-xs font-medium rounded-full text-on-surface-variant hover:text-primary transition-all" data-filter="bites" type="button">
+          Bites &amp; Focaccia
+        </button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg pt-3">
+      {
+        menuItems.map((item) => (
+          <article
+            class="menu-card group bg-surface-container-lowest rounded-lg p-space-lg shadow-elevation-1 hover:shadow-floating transition-all duration-300 flex flex-col justify-between relative overflow-visible hover:-translate-y-1.5"
+            data-category={item.category}
+          >
+            {item.badge ? (
+              <div
+                class:list={[
+                  'absolute -top-3 right-6 text-[11px] font-bold uppercase tracking-wider px-3 py-0.5 rounded-full shadow-sm z-20',
+                  item.badge.includes('TikTok')
+                    ? 'bg-secondary text-on-secondary'
+                    : 'bg-primary-container text-on-primary-container',
+                ]}
+              >
+                {item.badge}
+              </div>
+            ) : null}
+            <div>
+              <div class="h-44 rounded-md overflow-hidden mb-space-md relative">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  loading="lazy"
+                  width="400"
+                  height="176"
+                />
+                <div class="absolute top-2 left-2 bg-black/40 backdrop-blur-md px-2 py-0.5 rounded text-[10px] text-white font-mono">
+                  {item.mono}
+                </div>
+              </div>
+              <div class="flex items-baseline justify-between mb-1 gap-2">
+                <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold group-hover:text-primary transition-colors">
+                  {item.name}
+                </h3>
+                <span class="shrink-0 inline-flex items-center rounded-full bg-primary px-3 py-0.5 font-label-lg text-[13px] font-bold text-on-primary">
+                  {item.price}
+                </span>
+              </div>
+              <span class="text-xs uppercase tracking-wider text-outline block mb-2 font-medium">{item.subtitle}</span>
+              <p class="font-body-sm text-body-sm text-on-surface-variant">{item.description}</p>
+            </div>
+            <div class="mt-space-md pt-space-xs flex items-center justify-between text-xs text-outline font-semibold border-t border-surface-container">
+              <span>{item.notes}</span>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  const filterBtns = document.querySelectorAll('.menu-filter-btn')
+  const menuCards = document.querySelectorAll('.menu-card')
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter')
+      filterBtns.forEach((b) => {
+        b.classList.remove('bg-primary', 'text-on-primary', 'font-bold')
+        b.classList.add('text-on-surface-variant', 'font-medium')
+      })
+      btn.classList.add('bg-primary', 'text-on-primary', 'font-bold')
+      btn.classList.remove('text-on-surface-variant', 'font-medium')
+
+      menuCards.forEach((card) => {
+        const category = card.getAttribute('data-category')
+        const el = card as HTMLElement
+        if (filter === 'all' || category === filter) {
+          el.style.display = 'flex'
+        } else {
+          el.style.display = 'none'
+        }
+      })
+    })
+  })
+</script>

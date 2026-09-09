@@ -1,0 +1,153 @@
+---
+import {FOX_MASCOT} from '../lib/fallbacks'
+---
+
+<section class="w-full py-space-3xl bg-surface" id="about">
+  <div class="site-wrap">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-center">
+      <div class="lg:col-span-7 flex flex-col gap-space-md reveal-on-scroll">
+        <div class="inline-flex items-center gap-2">
+          <span class="sticker-chip">LA STORIA • Η ΙΔΕΑ</span>
+          <span class="text-xs text-outline uppercase tracking-wider font-semibold">EST. ILIOUPOLI ATHENS</span>
+        </div>
+        <h2 class="font-display text-headline-lg-mobile lg:text-headline-lg text-on-surface font-bold leading-tight text-balance">
+          Τρεις φίλες, ένα Spritz bar &amp; η αιώνια ηλιόλουστη διάθεση της Ηλιούπολης.
+        </h2>
+        <p class="font-title-lg text-title-lg text-primary font-medium italic -mt-2">
+          "We built the living room we always dreamed of partying in."
+        </p>
+        <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+          Η Περσόνα γεννήθηκε από τρία κορίτσια που κουράστηκαν από τα συνηθισμένα bars. Θέλαμε ατόφια ιταλική aperitivo
+          κουλτούρα: τραγανές focaccia, μυρωδάτα spritz με artisanal bitters, ατελείωτες κουβέντες κάτω από λεμονιές και,
+          όσο πέφτει το φως, 80s, 90s και 00s ύμνους που σε κάνουν να σηκώνεσαι από το τραπέζι.
+        </p>
+        <div
+          class="p-space-md bg-surface-container-low rounded-lg shadow-elevation-1 flex items-start gap-space-sm border-l-4 border-primary"
+        >
+          <span class="material-symbols-outlined text-primary text-3xl">format_quote</span>
+          <div class="flex flex-col">
+            <span class="font-headline-sm text-headline-sm text-on-surface font-semibold"
+              >«Η επόμενη στάση είναι γνωστή.»</span
+            >
+            <span class="font-body-sm text-body-sm text-outline italic"
+              >Next station: Ilioupoli Sun City. Spritz first, questions later.</span
+            >
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-space-sm pt-space-xs">
+          {
+            [
+              {icon: 'favorite', color: 'text-primary', label: '100% Female Founded'},
+              {icon: 'local_pizza', color: 'text-secondary', label: 'Open-Flame Pizzaiolo'},
+              {icon: 'graphic_eq', color: 'text-tertiary', label: 'Eclectic DJ Grooves'},
+            ].map((chip) => (
+              <div class="flex items-center gap-2 bg-surface-container px-space-sm py-2 rounded-lg text-xs font-semibold text-on-surface">
+                <span class={`material-symbols-outlined ${chip.color} text-[18px]`}>{chip.icon}</span>
+                <span>{chip.label}</span>
+              </div>
+            ))
+          }
+          <div
+            class="sticker-chip !bg-primary-fixed !text-on-primary-fixed !border-primary/30 rotate-[3deg]"
+          >
+            128+ ευτυχισμένες φάτσες στους τοίχους μας
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5 relative reveal-on-scroll">
+        <div
+          class="cursor-pointer group relative bg-cardboard rounded-lg p-space-lg shadow-elevation-2 border border-primary/10 overflow-hidden select-none"
+          id="unboxing-box"
+          role="button"
+          tabindex="0"
+          aria-expanded="false"
+          aria-label="Unbox Persona secrets"
+        >
+          <div
+            class="absolute -top-3 left-10 bg-primary-fixed text-on-primary-fixed text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 shadow-md -rotate-3 transition-transform duration-500 group-hover:rotate-0 rounded-tl-none rounded-br-2xl"
+            id="tape-banner"
+          >
+            FRAGILE • SPRITZ INSIDE
+          </div>
+          <div
+            class="absolute -bottom-3 right-6 bg-surface-dim text-on-surface-variant text-[10px] font-mono tracking-widest px-3 py-1 shadow rotate-2"
+          >
+            BATCH #042-ATH
+          </div>
+          <div
+            class="flex items-center justify-between pb-space-sm mb-space-sm bg-surface-container-highest px-3.5 py-2.5 rounded-lg"
+          >
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary text-xl">inventory_2</span>
+              <span class="font-label-sticker text-label-sticker text-on-surface tracking-wider uppercase font-bold"
+                >UNBOXING PERSONA</span
+              >
+            </div>
+            <span class="text-xs bg-primary text-on-primary px-3 py-0.5 rounded-full font-bold shadow-sm" id="unboxing-badge"
+              >Click to Open</span
+            >
+          </div>
+          <div class="flex items-center gap-space-sm mb-space-md">
+            <img
+              src={FOX_MASCOT}
+              alt=""
+              class="w-16 h-16 object-contain rounded-full bg-tangerine p-1.5 shadow-md"
+              width="64"
+              height="64"
+            />
+            <div>
+              <span class="font-headline-sm text-headline-sm text-on-surface block leading-tight">Οι 3 της Περσόνας</span>
+              <span class="text-xs text-outline uppercase tracking-wider">Eleni, Maria, Christina</span>
+            </div>
+          </div>
+          <div class="space-y-3 font-body-sm text-body-sm text-on-surface-variant" id="unboxing-content">
+            <div class="p-3 bg-surface-container rounded-lg">
+              <strong class="text-primary block font-semibold text-xs uppercase tracking-wider"
+                >01. Το μυστικό του Spritz:</strong
+              >
+              <span class="mt-0.5 block"
+                >Χειροποίητο σιρόπι περγαμόντο και prosecco από μικρό οινοποιείο στο Veneto.</span
+              >
+            </div>
+            <div class="p-3 bg-surface-container rounded-lg">
+              <strong class="text-secondary block font-semibold text-xs uppercase tracking-wider"
+                >02. Γιατί Αλεπού; (The Mascot):</strong
+              >
+              <span class="mt-0.5 block"
+                >Γιατί είναι παιχνιδιάρα, απρόβλεπτη και ξέρει πού κρύβεται το καλύτερο πάρτι στην πόλη!</span
+              >
+            </div>
+            <div class="p-3 bg-surface-container rounded-lg">
+              <strong class="text-tertiary block font-semibold text-xs uppercase tracking-wider"
+                >03. Vinyl &amp; 00s Anthems:</strong
+              >
+              <span class="mt-0.5 block">Από Raffaella Carrà μέχρι Gwen Stefani &amp; Nu-Disco edits.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const unbox = document.getElementById('unboxing-box')
+  const tape = document.getElementById('tape-banner')
+  const badge = document.getElementById('unboxing-badge')
+  let isUnboxed = false
+
+  unbox?.addEventListener('click', () => {
+    isUnboxed = !isUnboxed
+    unbox.setAttribute('aria-expanded', String(isUnboxed))
+    if (isUnboxed) {
+      unbox.classList.add('ring-4', 'ring-primary')
+      if (tape) tape.style.transform = 'translateY(-16px) rotate(-14deg) scale(1.08)'
+      if (badge) badge.textContent = 'Unboxed!'
+    } else {
+      unbox.classList.remove('ring-4', 'ring-primary')
+      if (tape) tape.style.transform = ''
+      if (badge) badge.textContent = 'Click to Open'
+    }
+  })
+</script>

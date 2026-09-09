@@ -1,0 +1,76 @@
+---
+import {FOX_MASCOT, siteDefaults} from '../lib/fallbacks'
+---
+
+<footer class="w-full bg-surface-container-low mt-space-3xl">
+  <div class="site-wrap py-space-3xl">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-space-xl items-start">
+      <div class="md:col-span-5 flex flex-col gap-space-sm">
+        <div class="flex items-baseline gap-2 group">
+          <img
+            src={FOX_MASCOT}
+            alt=""
+            class="w-7 h-7 object-contain rounded-full bg-tangerine p-1 inline-block mr-1 group-hover:rotate-12 transition-transform duration-300"
+            width="28"
+            height="28"
+          />
+          <span class="font-headline-md text-headline-md text-on-surface font-bold">{siteDefaults.brandName}</span>
+          <span class="font-label-sticker text-label-sticker text-primary uppercase font-bold">Aperitivo Club</span>
+        </div>
+        <p class="font-body-md text-body-md text-on-surface-variant max-w-md">
+          Sun-drenched Mediterranean aperitivo culture transitioning into late-night eclectic DJ grooves. Handcrafted
+          spritzes, natural bubbles, and Athenian warmth in the heart of Ilioupoli.
+        </p>
+        <div class="flex items-center gap-space-md pt-space-xs">
+          <a
+            class="inline-flex items-center gap-1.5 font-label-lg text-label-lg text-primary hover:underline"
+            href={siteDefaults.instagram}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <span class="material-symbols-outlined text-[18px]">photo_camera</span>
+            <span>{siteDefaults.instagramHandle}</span>
+          </a>
+          <a
+            class="inline-flex items-center gap-1.5 font-label-lg text-label-lg text-secondary hover:underline"
+            href={siteDefaults.tiktok}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <span class="material-symbols-outlined text-[18px]">videocam</span>
+            <span>{siteDefaults.tiktokHandle}</span>
+          </a>
+        </div>
+      </div>
+      <div class="md:col-span-4 flex flex-col gap-space-xs">
+        <span class="font-label-lg text-label-lg uppercase tracking-widest text-outline font-semibold">Ώρες • Hours</span>
+        <p class="font-body-md text-body-md text-on-surface">Τρίτη – Κυριακή: 18:00 – 02:30</p>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">Aperitivo Hour: 18:00 – 20:30 καθημερινά</p>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">Δευτέρα: Κλειστά / Closed for vinyl hunting</p>
+      </div>
+      <div class="md:col-span-3 flex flex-col gap-space-xs">
+        <span class="font-label-lg text-label-lg uppercase tracking-widest text-outline font-semibold"
+          >Τοποθεσία • Find Us</span
+        >
+        <p class="font-body-md text-body-md text-on-surface">Πλατεία Ηλιούπολης, Αθήνα</p>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">{siteDefaults.address}</p>
+        <a
+          class="font-label-lg text-label-lg text-primary hover:text-primary-container font-semibold mt-space-2xs inline-flex items-center gap-1"
+          href="#location-section"
+        >
+          Οδηγίες Χάρτη <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+    <div
+      class="mt-space-2xl pt-space-lg flex flex-col sm:flex-row items-center justify-between gap-space-md font-body-sm text-body-sm text-outline border-t border-surface-container"
+    >
+      <p>© {new Date().getFullYear()} ΠΕΡΣΟΝΑ SPRITZERIA. All rights reserved. Ilioupoli, GR.</p>
+      <div class="flex items-center gap-space-md">
+        <span class="font-label-sticker text-label-sticker uppercase tracking-widest text-primary">Sun • Spritz • Vinyl</span>
+        <a href="/privacy/" class="hover:text-primary">Privacy</a>
+        <a href="/cookies/" class="hover:text-primary">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
