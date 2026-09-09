@@ -1,4 +1,3 @@
-import sitemap from '@astrojs/sitemap'
 import tailwind from '@astrojs/tailwind'
 import vercel from '@astrojs/vercel'
 import sanity from '@sanity/astro'
@@ -65,9 +64,7 @@ export default defineConfig({
   },
   integrations: [
     tailwind({applyBaseStyles: false}),
-    sitemap({
-      filter: (page) => !page.includes('/api/'),
-    }),
+    // Sitemap disabled while the site is noindex / private.
     sanity({
       projectId: sanityProjectId,
       dataset: sanityDataset,

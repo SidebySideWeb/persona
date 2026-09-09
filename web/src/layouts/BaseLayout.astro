@@ -8,10 +8,11 @@ import {siteDefaults} from '../lib/fallbacks'
 interface Props {
   title?: string
   description?: string
+  /** Defaults to true while the site is private / pre-launch. */
   noindex?: boolean
 }
 
-const {title, description, noindex = false} = Astro.props
+const {title, description, noindex = true} = Astro.props
 const siteOrigin = resolveSiteOrigin(Astro.site)
 const publicPath = Astro.url.pathname
 const canonical = buildCanonicalUrl(publicPath, siteOrigin)
@@ -26,8 +27,9 @@ const pageDescription = description ?? siteDefaults.seoDescription
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
-    <link rel="canonical" href={canonical} />
-    {noindex ? <meta name="robots" content="noindex,nofollow" /> : null}
+    <meta name="robots" content={noindex ? 'noindex, nofollow, noarchive, nosnippet' : 'index, follow'} />
+    <meta name="googlebot" content={noindex ? 'noindex, nofollow, noarchive, nosnippet' : 'index, follow'} />
+    {noindex ? null : <link rel="canonical" href={canonical} />}
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="el_GR" />
     <meta property="og:title" content={pageTitle} />

@@ -1,5 +1,8 @@
 User-agent: *
-Allow: /
-Disallow: /api/
+Disallow: /
 
-Sitemap: https://ftiaxesite.gr/sitemap-index.xml
+User-agent: Googlebot
+Disallow: /
+
+User-agent: Bingbot
+Disallow: /
