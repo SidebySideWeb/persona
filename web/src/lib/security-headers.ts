@@ -17,6 +17,7 @@ function buildContentSecurityPolicy(): string {
       'https://www.google-analytics.com',
       'https://www.google.com',
       'https://www.gstatic.com',
+      'https://w.soundcloud.com',
     ].join(' '),
     [
       'style-src',
@@ -58,6 +59,9 @@ function buildContentSecurityPolicy(): string {
       'https://stats.g.doubleclick.net',
       'https://www.google.com',
       'https://www.gstatic.com',
+      'https://*.soundcloud.com',
+      'https://api.soundcloud.com',
+      'https://api-v2.soundcloud.com',
     ].join(' '),
     [
       'frame-src',
@@ -66,6 +70,15 @@ function buildContentSecurityPolicy(): string {
       'https://www.google.com',
       'https://recaptcha.google.com',
       'https://www.google.com/maps',
+      'https://w.soundcloud.com',
+      'https://*.soundcloud.com',
+    ].join(' '),
+    [
+      'media-src',
+      "'self'",
+      'blob:',
+      'https://*.soundcloud.com',
+      'https://*.sndcdn.com',
     ].join(' '),
     "worker-src 'self' blob:",
     "manifest-src 'self'",

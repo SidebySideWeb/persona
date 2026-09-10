@@ -2,10 +2,34 @@
 import {FOX_MASCOT, nightImages, siteDefaults} from '../lib/fallbacks'
 
 const tracks = [
-  {title: 'Raffaella Carrà • A Far L\'amore Comincia Tu', bpm: '128 BPM'},
-  {title: 'Sophie Ellis-Bextor • Murder on the Dancefloor', bpm: '118 BPM'},
-  {title: 'Modjo • Lady (Hear Me Tonight)', bpm: '124 BPM'},
+  {
+    title: 'Cyndi Lauper • Girls Just Wanna Have Fun',
+    artist: 'Paris Music',
+    era: '80s classic',
+    url: 'https://soundcloud.com/parismusicmusic/girls-just-wanna-have-fun-5',
+  },
+  {
+    title: '2 Unlimited • No Limit',
+    artist: 'DJ Lantern',
+    era: '90s techno',
+    url: 'https://soundcloud.com/cafedelantaarn/2-unlimited-no-limit-1993',
+  },
+  {
+    title: 'Corona • Rhythm Of The Night',
+    artist: 'DJ Lantern',
+    era: '90s dance',
+    url: 'https://soundcloud.com/cafedelantaarn/corona-rhythm-of-the-nights',
+  },
+  {
+    title: 'Daft Punk • One More Time',
+    artist: 'Daft Punk',
+    era: '00s house',
+    url: 'https://soundcloud.com/daftpunkofficialmusic/one-more-time-2',
+  },
 ]
+
+const firstTrack = tracks[0]
+const widgetSrc = `https://w.soundcloud.com/player/?url=${encodeURIComponent(firstTrack.url)}&color=%23E8246C&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false`
 ---
 
 <section class="w-full py-space-3xl bg-night text-inverse-on-surface relative overflow-hidden" id="dj-section">
@@ -73,23 +97,31 @@ const tracks = [
                 >PERSONA MIXTAPE VOL. 1</span
               >
             </div>
-            <div class="flex items-end gap-1 h-5 px-2 bg-black/40 rounded-full py-1">
+            <div
+              class="flex items-end gap-1 h-5 px-2 bg-black/40 rounded-full py-1"
+              id="mixtape-eq"
+              data-playing="false"
+            >
               <span class="w-1 bg-secondary rounded-full eq-1"></span>
               <span class="w-1 bg-primary rounded-full eq-2"></span>
               <span class="w-1 bg-amber-400 rounded-full eq-3"></span>
               <span class="w-1 bg-secondary rounded-full eq-4"></span>
             </div>
           </div>
+
           <div
             class="flex items-center gap-space-sm p-space-sm bg-black/50 rounded-lg mb-space-md border border-white/5 cursor-pointer hover:bg-black/70 transition-colors"
             id="vinyl-player-btn"
             role="button"
             tabindex="0"
+            aria-pressed="false"
+            aria-label="Play or pause mixtape"
           >
             <div class="relative w-12 h-12 shrink-0">
               <div
-                class="w-12 h-12 rounded-full bg-neutral-900 border-2 border-neutral-700 flex items-center justify-center shadow-lg animate-spin-vinyl"
+                class="w-12 h-12 rounded-full bg-neutral-900 border-2 border-neutral-700 flex items-center justify-center shadow-lg"
                 id="vinyl-disc"
+                style="animation-play-state: paused;"
               >
                 <div class="w-4 h-4 rounded-full bg-secondary flex items-center justify-center">
                   <div class="w-1 h-1 rounded-full bg-black"></div>
@@ -97,25 +129,49 @@ const tracks = [
               </div>
             </div>
             <div class="flex flex-col min-w-0 flex-1">
-              <span class="text-white font-bold text-sm truncate">Gala — Freed from Desire (Italo Spritz Edit)</span>
-              <span class="text-xs text-secondary-fixed-dim">DJ Guest: Persona Resident Crew</span>
+              <span class="text-white font-bold text-sm truncate" id="now-playing-title">{firstTrack.title}</span>
+              <span class="text-xs text-secondary-fixed-dim" id="now-playing-meta">{firstTrack.artist} • SoundCloud</span>
             </div>
-            <span class="text-xs font-mono text-outline-variant pr-2">02:44 / 04:12</span>
+            <span class="text-xs font-mono text-outline-variant pr-2 tabular-nums" id="now-playing-time">0:00 / 0:00</span>
           </div>
-          <div class="space-y-2 text-xs">
+
+          <div class="space-y-2 text-xs" id="mixtape-tracklist">
             {
               tracks.map((track, i) => (
-                <div class="flex items-center justify-between p-2.5 rounded-lg bg-white/5 hover:bg-white/15 transition-all">
-                  <span class="text-white flex items-center gap-2">
-                    <span class="material-symbols-outlined text-xs text-secondary">play_arrow</span>
-                    {String(i + 1).padStart(2, '0')}. {track.title}
+                <button
+                  type="button"
+                  class="mixtape-track w-full flex items-center justify-between p-2.5 rounded-lg bg-white/5 hover:bg-white/15 transition-all text-left"
+                  data-track-url={track.url}
+                  data-track-title={track.title}
+                  data-track-artist={track.artist}
+                  data-track-index={String(i)}
+                  aria-current={i === 0 ? 'true' : 'false'}
+                >
+                  <span class="text-white flex items-center gap-2 min-w-0">
+                    <span class="material-symbols-outlined text-xs text-secondary track-icon">play_arrow</span>
+                    <span class="truncate">
+                      {String(i + 1).padStart(2, '0')}. {track.title}
+                    </span>
                   </span>
-                  <span class="text-secondary-fixed-dim font-mono">{track.bpm}</span>
-                </div>
+                  <span class="text-secondary-fixed-dim font-mono shrink-0 ml-2">{track.era}</span>
+                </button>
               ))
             }
           </div>
         </div>
+
+        <iframe
+          id="sc-widget"
+          title="Persona SoundCloud mixtape"
+          allow="autoplay"
+          loading="lazy"
+          class="sr-only"
+          width="100%"
+          height="0"
+          scrolling="no"
+          frameborder="no"
+          src={widgetSrc}
+        ></iframe>
       </div>
 
       <div
@@ -150,15 +206,161 @@ const tracks = [
   </div>
 </section>
 
-<script>
-  const vinylBtn = document.getElementById('vinyl-player-btn')
-  const vinylDisc = document.getElementById('vinyl-disc')
-  let isPlaying = true
+<style>
+  #vinyl-disc.is-spinning {
+    animation: spin-vinyl 4s linear infinite;
+  }
 
-  vinylBtn?.addEventListener('click', () => {
-    isPlaying = !isPlaying
-    if (vinylDisc) {
-      vinylDisc.style.animationPlayState = isPlaying ? 'running' : 'paused'
+  #mixtape-eq[data-playing='false'] .eq-1,
+  #mixtape-eq[data-playing='false'] .eq-2,
+  #mixtape-eq[data-playing='false'] .eq-3,
+  #mixtape-eq[data-playing='false'] .eq-4 {
+    animation: none;
+    height: 4px;
+  }
+
+  .mixtape-track[aria-current='true'] {
+    background-color: rgba(232, 36, 108, 0.22);
+    box-shadow: inset 0 0 0 1px rgba(232, 36, 108, 0.45);
+  }
+</style>
+
+<script is:inline>
+  ;(function () {
+    function formatTime(ms) {
+      var total = Math.max(0, Math.floor((ms || 0) / 1000))
+      var m = Math.floor(total / 60)
+      var s = String(total % 60).padStart(2, '0')
+      return m + ':' + s
     }
-  })
+
+    function bootMixtape() {
+      var iframe = document.getElementById('sc-widget')
+      var vinylBtn = document.getElementById('vinyl-player-btn')
+      var vinylDisc = document.getElementById('vinyl-disc')
+      var titleEl = document.getElementById('now-playing-title')
+      var metaEl = document.getElementById('now-playing-meta')
+      var timeEl = document.getElementById('now-playing-time')
+      var eq = document.getElementById('mixtape-eq')
+      var trackButtons = Array.prototype.slice.call(document.querySelectorAll('.mixtape-track'))
+
+      if (!iframe || !vinylBtn || !window.SC || !window.SC.Widget) return
+
+      var widget = window.SC.Widget(iframe)
+      var currentIndex = 0
+      var duration = 0
+
+      function setPlayingUI(playing) {
+        vinylBtn.setAttribute('aria-pressed', String(playing))
+        if (vinylDisc) vinylDisc.classList.toggle('is-spinning', playing)
+        if (eq) eq.setAttribute('data-playing', String(playing))
+        trackButtons.forEach(function (btn, i) {
+          var icon = btn.querySelector('.track-icon')
+          if (icon) icon.textContent = playing && i === currentIndex ? 'pause' : 'play_arrow'
+        })
+      }
+
+      function setActiveTrack(index) {
+        currentIndex = index
+        trackButtons.forEach(function (btn, i) {
+          btn.setAttribute('aria-current', i === index ? 'true' : 'false')
+        })
+        var btn = trackButtons[index]
+        if (btn && titleEl && metaEl) {
+          titleEl.textContent = btn.getAttribute('data-track-title') || ''
+          metaEl.textContent = (btn.getAttribute('data-track-artist') || '') + ' • SoundCloud'
+        }
+      }
+
+      function loadTrack(index, autoPlay) {
+        var btn = trackButtons[index]
+        var url = btn && btn.getAttribute('data-track-url')
+        if (!url) return
+        setActiveTrack(index)
+        widget.load(url, {
+          auto_play: !!autoPlay,
+          show_artwork: false,
+          show_comments: false,
+          buying: false,
+          liking: false,
+          download: false,
+          sharing: false,
+          show_playcount: false,
+          show_user: false,
+          hide_related: true,
+        })
+      }
+
+      widget.bind(window.SC.Widget.Events.READY, function () {
+        widget.getDuration(function (d) {
+          duration = d || 0
+          if (timeEl) timeEl.textContent = '0:00 / ' + formatTime(duration)
+        })
+      })
+
+      widget.bind(window.SC.Widget.Events.PLAY, function () {
+        setPlayingUI(true)
+      })
+      widget.bind(window.SC.Widget.Events.PAUSE, function () {
+        setPlayingUI(false)
+      })
+      widget.bind(window.SC.Widget.Events.FINISH, function () {
+        loadTrack((currentIndex + 1) % trackButtons.length, true)
+      })
+      widget.bind(window.SC.Widget.Events.PLAY_PROGRESS, function (data) {
+        if (!timeEl) return
+        widget.getDuration(function (d) {
+          duration = d || duration
+          timeEl.textContent = formatTime(data.currentPosition) + ' / ' + formatTime(duration)
+        })
+      })
+
+      vinylBtn.addEventListener('click', function () {
+        widget.toggle()
+      })
+      vinylBtn.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault()
+          widget.toggle()
+        }
+      })
+
+      trackButtons.forEach(function (btn, index) {
+        btn.addEventListener('click', function () {
+          if (index === currentIndex) {
+            widget.toggle()
+            return
+          }
+          loadTrack(index, true)
+        })
+      })
+
+      setActiveTrack(0)
+      setPlayingUI(false)
+    }
+
+    function loadApiThenBoot() {
+      if (window.SC && window.SC.Widget) {
+        bootMixtape()
+        return
+      }
+      var existing = document.querySelector('script[data-sc-widget-api]')
+      if (existing) {
+        existing.addEventListener('load', bootMixtape)
+        return
+      }
+      var s = document.createElement('script')
+      s.src = 'https://w.soundcloud.com/player/api.js'
+      s.async = true
+      s.setAttribute('data-sc-widget-api', 'true')
+      s.onload = bootMixtape
+      document.head.appendChild(s)
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', loadApiThenBoot)
+    } else {
+      loadApiThenBoot()
+    }
+  })()
 </script>
