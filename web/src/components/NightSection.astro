@@ -160,14 +160,15 @@ const widgetSrc = `https://w.soundcloud.com/player/?url=${encodeURIComponent(fir
           </div>
         </div>
 
+        <!-- Real-size offscreen player: height:0 / lazy / display:none breaks SoundCloud postMessage -->
         <iframe
           id="sc-widget"
           title="Persona SoundCloud mixtape"
-          allow="autoplay"
-          loading="lazy"
-          class="sr-only"
+          allow="autoplay; encrypted-media; fullscreen"
+          referrerpolicy="origin-when-cross-origin"
+          class="sc-widget-host"
           width="100%"
-          height="0"
+          height="166"
           scrolling="no"
           frameborder="no"
           src={widgetSrc}
@@ -223,6 +224,18 @@ const widgetSrc = `https://w.soundcloud.com/player/?url=${encodeURIComponent(fir
     background-color: rgba(232, 36, 108, 0.22);
     box-shadow: inset 0 0 0 1px rgba(232, 36, 108, 0.45);
   }
+
+  .sc-widget-host {
+    position: absolute;
+    width: 100%;
+    max-width: 420px;
+    height: 166px;
+    left: -10000px;
+    top: 0;
+    opacity: 0;
+    pointer-events: none;
+    border: 0;
+  }
 </style>
 
 <script is:inline>
@@ -232,6 +245,27 @@ const widgetSrc = `https://w.soundcloud.com/player/?url=${encodeURIComponent(fir
       var m = Math.floor(total / 60)
       var s = String(total % 60).padStart(2, '0')
       return m + ':' + s
+    }
+
+    function whenIframeReady(iframe, cb) {
+      var done = false
+      function finish() {
+        if (done) return
+        done = true
+        cb()
+      }
+      // SoundCloud origin must be loaded before Widget API postMessage works.
+      iframe.addEventListener('load', finish)
+      // If already complete (cached), load may have fired already.
+      try {
+        if (iframe.contentWindow && iframe.contentDocument) {
+          // same-origin only — SoundCloud is cross-origin, so ignore
+        }
+      } catch (e) {
+        // cross-origin access means the remote document is present
+        finish()
+      }
+      setTimeout(finish, 2500)
     }
 
     function bootMixtape() {
@@ -246,114 +280,127 @@ const widgetSrc = `https://w.soundcloud.com/player/?url=${encodeURIComponent(fir
 
       if (!iframe || !vinylBtn || !window.SC || !window.SC.Widget) return
 
-      var widget = window.SC.Widget(iframe)
-      var currentIndex = 0
-      var duration = 0
+      whenIframeReady(iframe, function () {
+        var widget = window.SC.Widget(iframe)
+        var currentIndex = 0
+        var duration = 0
+        var ready = false
 
-      function setPlayingUI(playing) {
-        vinylBtn.setAttribute('aria-pressed', String(playing))
-        if (vinylDisc) vinylDisc.classList.toggle('is-spinning', playing)
-        if (eq) eq.setAttribute('data-playing', String(playing))
-        trackButtons.forEach(function (btn, i) {
-          var icon = btn.querySelector('.track-icon')
-          if (icon) icon.textContent = playing && i === currentIndex ? 'pause' : 'play_arrow'
-        })
-      }
-
-      function setActiveTrack(index) {
-        currentIndex = index
-        trackButtons.forEach(function (btn, i) {
-          btn.setAttribute('aria-current', i === index ? 'true' : 'false')
-        })
-        var btn = trackButtons[index]
-        if (btn && titleEl && metaEl) {
-          titleEl.textContent = btn.getAttribute('data-track-title') || ''
-          metaEl.textContent = (btn.getAttribute('data-track-artist') || '') + ' • SoundCloud'
+        function setPlayingUI(playing) {
+          vinylBtn.setAttribute('aria-pressed', String(playing))
+          if (vinylDisc) vinylDisc.classList.toggle('is-spinning', playing)
+          if (eq) eq.setAttribute('data-playing', String(playing))
+          trackButtons.forEach(function (btn, i) {
+            var icon = btn.querySelector('.track-icon')
+            if (icon) icon.textContent = playing && i === currentIndex ? 'pause' : 'play_arrow'
+          })
         }
-      }
 
-      function loadTrack(index, autoPlay) {
-        var btn = trackButtons[index]
-        var url = btn && btn.getAttribute('data-track-url')
-        if (!url) return
-        setActiveTrack(index)
-        widget.load(url, {
-          auto_play: !!autoPlay,
-          show_artwork: false,
-          show_comments: false,
-          buying: false,
-          liking: false,
-          download: false,
-          sharing: false,
-          show_playcount: false,
-          show_user: false,
-          hide_related: true,
+        function setActiveTrack(index) {
+          currentIndex = index
+          trackButtons.forEach(function (btn, i) {
+            btn.setAttribute('aria-current', i === index ? 'true' : 'false')
+          })
+          var btn = trackButtons[index]
+          if (btn && titleEl && metaEl) {
+            titleEl.textContent = btn.getAttribute('data-track-title') || ''
+            metaEl.textContent = (btn.getAttribute('data-track-artist') || '') + ' • SoundCloud'
+          }
+        }
+
+        function loadTrack(index, autoPlay) {
+          var btn = trackButtons[index]
+          var url = btn && btn.getAttribute('data-track-url')
+          if (!url) return
+          setActiveTrack(index)
+          widget.load(url, {
+            auto_play: !!autoPlay,
+            show_artwork: false,
+            show_comments: false,
+            buying: false,
+            liking: false,
+            download: false,
+            sharing: false,
+            show_playcount: false,
+            show_user: false,
+            hide_related: true,
+            callback: function () {
+              ready = true
+            },
+          })
+        }
+
+        widget.bind(window.SC.Widget.Events.READY, function () {
+          ready = true
+          widget.getDuration(function (d) {
+            duration = d || 0
+            if (timeEl) timeEl.textContent = '0:00 / ' + formatTime(duration)
+          })
         })
-      }
 
-      widget.bind(window.SC.Widget.Events.READY, function () {
-        widget.getDuration(function (d) {
-          duration = d || 0
-          if (timeEl) timeEl.textContent = '0:00 / ' + formatTime(duration)
+        widget.bind(window.SC.Widget.Events.PLAY, function () {
+          setPlayingUI(true)
         })
-      })
-
-      widget.bind(window.SC.Widget.Events.PLAY, function () {
-        setPlayingUI(true)
-      })
-      widget.bind(window.SC.Widget.Events.PAUSE, function () {
-        setPlayingUI(false)
-      })
-      widget.bind(window.SC.Widget.Events.FINISH, function () {
-        loadTrack((currentIndex + 1) % trackButtons.length, true)
-      })
-      widget.bind(window.SC.Widget.Events.PLAY_PROGRESS, function (data) {
-        if (!timeEl) return
-        widget.getDuration(function (d) {
-          duration = d || duration
-          timeEl.textContent = formatTime(data.currentPosition) + ' / ' + formatTime(duration)
+        widget.bind(window.SC.Widget.Events.PAUSE, function () {
+          setPlayingUI(false)
         })
-      })
+        widget.bind(window.SC.Widget.Events.FINISH, function () {
+          loadTrack((currentIndex + 1) % trackButtons.length, true)
+        })
+        widget.bind(window.SC.Widget.Events.PLAY_PROGRESS, function (data) {
+          if (!timeEl) return
+          widget.getDuration(function (d) {
+            duration = d || duration
+            timeEl.textContent = formatTime(data.currentPosition) + ' / ' + formatTime(duration)
+          })
+        })
 
-      vinylBtn.addEventListener('click', function () {
-        widget.toggle()
-      })
-      vinylBtn.addEventListener('keydown', function (event) {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault()
+        function togglePlayback() {
+          if (!ready) return
           widget.toggle()
         }
-      })
 
-      trackButtons.forEach(function (btn, index) {
-        btn.addEventListener('click', function () {
-          if (index === currentIndex) {
-            widget.toggle()
-            return
+        vinylBtn.addEventListener('click', togglePlayback)
+        vinylBtn.addEventListener('keydown', function (event) {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault()
+            togglePlayback()
           }
-          loadTrack(index, true)
         })
-      })
 
-      setActiveTrack(0)
-      setPlayingUI(false)
+        trackButtons.forEach(function (btn, index) {
+          btn.addEventListener('click', function () {
+            if (index === currentIndex) {
+              togglePlayback()
+              return
+            }
+            loadTrack(index, true)
+          })
+        })
+
+        setActiveTrack(0)
+        setPlayingUI(false)
+      })
     }
 
     function loadApiThenBoot() {
-      if (window.SC && window.SC.Widget) {
+      function start() {
         bootMixtape()
+      }
+      if (window.SC && window.SC.Widget) {
+        start()
         return
       }
       var existing = document.querySelector('script[data-sc-widget-api]')
       if (existing) {
-        existing.addEventListener('load', bootMixtape)
+        existing.addEventListener('load', start)
         return
       }
       var s = document.createElement('script')
       s.src = 'https://w.soundcloud.com/player/api.js'
       s.async = true
       s.setAttribute('data-sc-widget-api', 'true')
-      s.onload = bootMixtape
+      s.onload = start
       document.head.appendChild(s)
     }
 
